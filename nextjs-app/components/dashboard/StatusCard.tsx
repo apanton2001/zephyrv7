@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { MetricCard } from '../../components/ui/template-card';
 
 interface StatusCardProps {
   title: string;
@@ -18,57 +19,30 @@ export default function StatusCard({
   trend, 
   color = 'default' 
 }: StatusCardProps) {
-  
-  // Determine background and text color based on status
-  const getColorClasses = () => {
+  // Map color to status for MetricCard
+  const getStatus = () => {
     switch (color) {
-      case 'success':
-        return 'border-status-success/20 bg-status-success/5';
-      case 'warning':
-        return 'border-status-warning/20 bg-status-warning/5';
-      case 'error':
-        return 'border-status-error/20 bg-status-error/5';
-      default:
-        return 'border-border bg-background-card';
+      case 'success': return 'success';
+      case 'warning': return 'warning';
+      case 'error': return 'error';
+      default: return undefined;
     }
   };
 
-  // Icon container background color
-  const getIconBackground = () => {
-    switch (color) {
-      case 'success':
-        return 'bg-status-success/10 text-status-success';
-      case 'warning':
-        return 'bg-status-warning/10 text-status-warning';
-      case 'error':
-        return 'bg-status-error/10 text-status-error';
-      default:
-        return 'bg-primary/10 text-primary-light';
-    }
-  };
+  // Format value if it's a number
+  const formattedValue = typeof value === 'number' ? value.toLocaleString() : value;
+  
+  // Determine trend direction
+  const trendDirection = trend ? (trend.isPositive ? 'up' : 'down') : undefined;
 
   return (
-    <div className={`card flex flex-col overflow-hidden ${getColorClasses()}`}>
-      <div className="flex items-start justify-between">
-        <div className={`p-2 rounded-lg ${getIconBackground()}`}>
-          {icon}
-        </div>
-        
-        {trend && (
-          <div className={`flex items-center text-xs ${trend.isPositive ? 'text-status-success' : 'text-status-error'}`}>
-            {trend.isPositive ? (
-              <span>↗ +{trend.value}%</span>
-            ) : (
-              <span>↘ {trend.value}%</span>
-            )}
-          </div>
-        )}
-      </div>
-      
-      <div className="mt-4">
-        <p className="text-text-secondary text-sm">{title}</p>
-        <p className="text-2xl font-bold mt-1">{value}</p>
-      </div>
-    </div>
+    <MetricCard
+      title={title}
+      value={formattedValue}
+      icon={icon}
+      change={trend?.value}
+      trend={trendDirection}
+      className={color !== 'default' ? `border-l-4 border-[--template-${color === 'success' ? 'success' : color === 'warning' ? 'warning' : 'error'}]` : ''}
+    />
   );
 }

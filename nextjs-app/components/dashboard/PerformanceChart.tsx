@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { trackEvent, AnalyticsEvents } from '../../lib/analytics';
+import { TemplateCard, TemplateCardHeader, TemplateCardContent, TemplateCardTitle } from '../../components/ui/template-card';
 
 // Register the required Chart.js components
 ChartJS.register(
@@ -161,30 +162,34 @@ export default function PerformanceChart({
   };
 
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold">{title}</h3>
-        
-        {/* Period selector */}
-        <div className="flex text-xs">
-          {periods.map((period) => (
-            <button
-              key={period.value}
-              className={`px-2 py-1 rounded ${periodType === period.value 
-                ? 'bg-primary text-white' 
-                : 'text-text-secondary hover:text-text-primary'}`}
-              onClick={() => handlePeriodChange(period.value)}
-            >
-              {period.label}
-            </button>
-          ))}
+    <TemplateCard variant="dashboard">
+      <TemplateCardHeader>
+        <div className="flex items-center justify-between">
+          <TemplateCardTitle>{title}</TemplateCardTitle>
+          
+          {/* Period selector */}
+          <div className="flex text-xs">
+            {periods.map((period) => (
+              <button
+                key={period.value}
+                className={`px-2 py-1 rounded ${periodType === period.value 
+                  ? 'bg-primary text-white' 
+                  : 'text-text-secondary hover:text-text-primary'}`}
+                onClick={() => handlePeriodChange(period.value)}
+              >
+                {period.label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      </TemplateCardHeader>
       
-      <div style={{ height }}>
-        <Line options={chartOptions} data={data} />
-      </div>
-    </div>
+      <TemplateCardContent>
+        <div style={{ height }}>
+          <Line options={chartOptions} data={data} />
+        </div>
+      </TemplateCardContent>
+    </TemplateCard>
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowTrendingUpIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 import { calculateOverallEfficiency, getEfficiencyStatus, getEfficiencyColorClass, getFactorDescriptions, EfficiencyFactors } from '../../lib/utils/warehouseEfficiency';
 import { trackEvent, AnalyticsEvents } from '../../lib/analytics';
+import { TemplateCard, TemplateCardHeader, TemplateCardContent, TemplateCardTitle } from '../../components/ui/template-card';
 
 interface EfficiencyScoreProps {
   // Overall score can be provided directly or calculated from factors
@@ -49,10 +50,10 @@ export default function EfficiencyScore({
   };
   
   const getProgressColor = () => {
-    if (effectiveScore >= 90) return 'bg-status-success';
-    if (effectiveScore >= 75) return 'bg-status-info';
-    if (effectiveScore >= 60) return 'bg-status-warning';
-    return 'bg-status-error';
+    if (effectiveScore >= 90) return 'bg-[--template-success]';
+    if (effectiveScore >= 75) return 'bg-[--template-info]';
+    if (effectiveScore >= 60) return 'bg-[--template-warning]';
+    return 'bg-[--template-error]';
   };
   
   // Format the "last updated" time
@@ -77,125 +78,143 @@ export default function EfficiencyScore({
     setActiveTooltip(null);
   };
 
+  // Determine card status based on score
+  const getCardStatus = () => {
+    if (effectiveScore >= 90) return "success" as const;
+    if (effectiveScore >= 75) return "info" as const;
+    if (effectiveScore >= 60) return "warning" as const;
+    return "error" as const;
+  };
+
+  const cardStatus = getCardStatus();
+
   return (
-    <div className="card">
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center">
-          <ArrowTrendingUpIcon className="h-5 w-5 text-primary-light mr-2" />
-          <h3 className="font-semibold">Warehouse Efficiency</h3>
-        </div>
-        
-        {change !== undefined && (
-          <div className={`text-sm font-medium ${change >= 0 ? 'text-status-success' : 'text-status-error'}`}>
-            {change >= 0 ? `↗ +${change.toFixed(1)}%` : `↘ ${change.toFixed(1)}%`}
+    <TemplateCard 
+      variant="default"
+      status={cardStatus}
+      borderPosition="left"
+    >
+      <TemplateCardHeader>
+        <div className="flex items-start justify-between">
+          <div className="flex items-center">
+            <ArrowTrendingUpIcon className="h-5 w-5 text-primary-light mr-2" />
+            <TemplateCardTitle>Warehouse Efficiency</TemplateCardTitle>
           </div>
-        )}
-      </div>
+          
+          {change !== undefined && (
+            <div className={`text-sm font-medium ${change >= 0 ? 'text-[--template-success]' : 'text-[--template-error]'}`}>
+              {change >= 0 ? `↗ +${change.toFixed(1)}%` : `↘ ${change.toFixed(1)}%`}
+            </div>
+          )}
+        </div>
+      </TemplateCardHeader>
       
-      <div className="flex items-baseline mb-1">
-        <div>
-          <span className="text-4xl font-bold">{formattedScore}</span>
-          <span className="ml-2 text-sm font-medium">{efficiencyStatus}</span>
-        </div>
-        <span className="ml-auto text-xs text-text-secondary">{getFormattedTime()}</span>
-      </div>
-      
-      <div className="w-full h-2 bg-background-light rounded-full overflow-hidden">
-        <div 
-          className={`h-full rounded-full ${getProgressColor()}`} 
-          style={{ width: getProgressWidth() }}
-        />
-      </div>
-      
-      <div className="mt-4 grid grid-cols-4 gap-4">
-        {/* Order Fulfillment */}
-        <div 
-          className="text-center relative"
-          onMouseEnter={() => handleMouseEnter('orderFulfillment')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="flex items-center justify-center">
-            <span className="block text-xs text-text-secondary mr-1">Order Rate</span>
-            {showTooltips && (
-              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
-            )}
+      <TemplateCardContent>
+        <div className="flex items-baseline mb-1">
+          <div>
+            <span className="text-4xl font-bold">{formattedScore}</span>
+            <span className="ml-2 text-sm font-medium">{efficiencyStatus}</span>
           </div>
-          <span className="font-medium">{factors.orderFulfillment.toFixed(1)}%</span>
-          
-          {/* Tooltip */}
-          {showTooltips && activeTooltip === 'orderFulfillment' && (
-            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
-              {factorDescriptions.orderFulfillment}
-            </div>
-          )}
+          <span className="ml-auto text-xs text-text-secondary">{getFormattedTime()}</span>
         </div>
         
-        {/* Inventory Accuracy */}
-        <div 
-          className="text-center relative"
-          onMouseEnter={() => handleMouseEnter('inventoryAccuracy')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="flex items-center justify-center">
-            <span className="block text-xs text-text-secondary mr-1">Inventory</span>
-            {showTooltips && (
-              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
-            )}
-          </div>
-          <span className="font-medium">{factors.inventoryAccuracy.toFixed(1)}%</span>
-          
-          {/* Tooltip */}
-          {showTooltips && activeTooltip === 'inventoryAccuracy' && (
-            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
-              {factorDescriptions.inventoryAccuracy}
-            </div>
-          )}
+        <div className="w-full h-2 bg-background-light rounded-full overflow-hidden">
+          <div 
+            className={`h-full rounded-full ${getProgressColor()}`} 
+            style={{ width: getProgressWidth() }}
+          />
         </div>
         
-        {/* Space Utilization */}
-        <div 
-          className="text-center relative"
-          onMouseEnter={() => handleMouseEnter('spaceUtilization')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="flex items-center justify-center">
-            <span className="block text-xs text-text-secondary mr-1">Space</span>
-            {showTooltips && (
-              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+        <div className="mt-4 grid grid-cols-4 gap-4">
+          {/* Order Fulfillment */}
+          <div 
+            className="text-center relative"
+            onMouseEnter={() => handleMouseEnter('orderFulfillment')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="flex items-center justify-center">
+              <span className="block text-xs text-text-secondary mr-1">Order Rate</span>
+              {showTooltips && (
+                <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+              )}
+            </div>
+            <span className="font-medium">{factors.orderFulfillment.toFixed(1)}%</span>
+            
+            {/* Tooltip */}
+            {showTooltips && activeTooltip === 'orderFulfillment' && (
+              <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+                {factorDescriptions.orderFulfillment}
+              </div>
             )}
           </div>
-          <span className="font-medium">{factors.spaceUtilization.toFixed(1)}%</span>
           
-          {/* Tooltip */}
-          {showTooltips && activeTooltip === 'spaceUtilization' && (
-            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
-              {factorDescriptions.spaceUtilization}
+          {/* Inventory Accuracy */}
+          <div 
+            className="text-center relative"
+            onMouseEnter={() => handleMouseEnter('inventoryAccuracy')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="flex items-center justify-center">
+              <span className="block text-xs text-text-secondary mr-1">Inventory</span>
+              {showTooltips && (
+                <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+              )}
             </div>
-          )}
-        </div>
-        
-        {/* Labor Productivity */}
-        <div 
-          className="text-center relative"
-          onMouseEnter={() => handleMouseEnter('laborProductivity')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div className="flex items-center justify-center">
-            <span className="block text-xs text-text-secondary mr-1">Productivity</span>
-            {showTooltips && (
-              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+            <span className="font-medium">{factors.inventoryAccuracy.toFixed(1)}%</span>
+            
+            {/* Tooltip */}
+            {showTooltips && activeTooltip === 'inventoryAccuracy' && (
+              <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+                {factorDescriptions.inventoryAccuracy}
+              </div>
             )}
           </div>
-          <span className="font-medium">{factors.laborProductivity.toFixed(1)}%</span>
           
-          {/* Tooltip */}
-          {showTooltips && activeTooltip === 'laborProductivity' && (
-            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
-              {factorDescriptions.laborProductivity}
+          {/* Space Utilization */}
+          <div 
+            className="text-center relative"
+            onMouseEnter={() => handleMouseEnter('spaceUtilization')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="flex items-center justify-center">
+              <span className="block text-xs text-text-secondary mr-1">Space</span>
+              {showTooltips && (
+                <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+              )}
             </div>
-          )}
+            <span className="font-medium">{factors.spaceUtilization.toFixed(1)}%</span>
+            
+            {/* Tooltip */}
+            {showTooltips && activeTooltip === 'spaceUtilization' && (
+              <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+                {factorDescriptions.spaceUtilization}
+              </div>
+            )}
+          </div>
+          
+          {/* Labor Productivity */}
+          <div 
+            className="text-center relative"
+            onMouseEnter={() => handleMouseEnter('laborProductivity')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <div className="flex items-center justify-center">
+              <span className="block text-xs text-text-secondary mr-1">Productivity</span>
+              {showTooltips && (
+                <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+              )}
+            </div>
+            <span className="font-medium">{factors.laborProductivity.toFixed(1)}%</span>
+            
+            {/* Tooltip */}
+            {showTooltips && activeTooltip === 'laborProductivity' && (
+              <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+                {factorDescriptions.laborProductivity}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      </TemplateCardContent>
+    </TemplateCard>
   );
 }
