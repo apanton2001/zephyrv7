@@ -1,29 +1,57 @@
-import React from 'react';
-import { ArrowTrendingUpIcon } from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
+import { ArrowTrendingUpIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { calculateOverallEfficiency, getEfficiencyStatus, getEfficiencyColorClass, getFactorDescriptions, EfficiencyFactors } from '../../lib/utils/warehouseEfficiency';
+import { trackEvent, AnalyticsEvents } from '../../lib/analytics';
 
 interface EfficiencyScoreProps {
-  score: number;
+  // Overall score can be provided directly or calculated from factors
+  score?: number;
+  // Individual efficiency factors
+  factors?: EfficiencyFactors;
+  // Historical comparison
   change?: number;
+  // Last updated timestamp
   lastUpdated?: string;
+  // Whether to show factor tooltips
+  showTooltips?: boolean;
 }
 
 export default function EfficiencyScore({ 
   score, 
+  factors = {
+    orderFulfillment: 97.2,
+    inventoryAccuracy: 94.5,
+    spaceUtilization: 88.3,
+    laborProductivity: 92.1
+  },
   change, 
-  lastUpdated 
+  lastUpdated,
+  showTooltips = true
 }: EfficiencyScoreProps) {
+  // State for active tooltip
+  const [activeTooltip, setActiveTooltip] = useState<keyof EfficiencyFactors | null>(null);
+
+  // Get factor descriptions for tooltips
+  const factorDescriptions = getFactorDescriptions();
+  
+  // Calculate overall score if not provided directly
+  const effectiveScore = score ?? calculateOverallEfficiency(factors);
+  
   // Format the score as a percentage with 1 decimal place
-  const formattedScore = `${score.toFixed(1)}%`;
+  const formattedScore = `${effectiveScore.toFixed(1)}%`;
+  
+  // Get a text status based on the score
+  const efficiencyStatus = getEfficiencyStatus(effectiveScore);
   
   // Determine the progress bar width and color based on score
   const getProgressWidth = () => {
-    return `${Math.min(score, 100)}%`;
+    return `${Math.min(effectiveScore, 100)}%`;
   };
   
   const getProgressColor = () => {
-    if (score >= 90) return 'bg-status-success';
-    if (score >= 75) return 'bg-status-info';
-    if (score >= 60) return 'bg-status-warning';
+    if (effectiveScore >= 90) return 'bg-status-success';
+    if (effectiveScore >= 75) return 'bg-status-info';
+    if (effectiveScore >= 60) return 'bg-status-warning';
     return 'bg-status-error';
   };
   
@@ -31,6 +59,22 @@ export default function EfficiencyScore({
   const getFormattedTime = () => {
     if (!lastUpdated) return '';
     return `Last Updated: ${lastUpdated}`;
+  };
+
+  // Handle mouse entering a factor box (for tooltips)
+  const handleMouseEnter = (factor: keyof EfficiencyFactors) => {
+    setActiveTooltip(factor);
+    // Track analytics event
+    trackEvent(AnalyticsEvents.WIDGET_INTERACT, { 
+      widget: 'efficiency_score', 
+      action: 'tooltip_view',
+      factor
+    });
+  };
+
+  // Handle mouse leaving a factor box
+  const handleMouseLeave = () => {
+    setActiveTooltip(null);
   };
 
   return (
@@ -49,7 +93,10 @@ export default function EfficiencyScore({
       </div>
       
       <div className="flex items-baseline mb-1">
-        <span className="text-4xl font-bold">{formattedScore}</span>
+        <div>
+          <span className="text-4xl font-bold">{formattedScore}</span>
+          <span className="ml-2 text-sm font-medium">{efficiencyStatus}</span>
+        </div>
         <span className="ml-auto text-xs text-text-secondary">{getFormattedTime()}</span>
       </div>
       
@@ -61,21 +108,92 @@ export default function EfficiencyScore({
       </div>
       
       <div className="mt-4 grid grid-cols-4 gap-4">
-        <div className="text-center">
-          <span className="block text-xs text-text-secondary">Order Rate</span>
-          <span className="font-medium">97.2%</span>
+        {/* Order Fulfillment */}
+        <div 
+          className="text-center relative"
+          onMouseEnter={() => handleMouseEnter('orderFulfillment')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="flex items-center justify-center">
+            <span className="block text-xs text-text-secondary mr-1">Order Rate</span>
+            {showTooltips && (
+              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+            )}
+          </div>
+          <span className="font-medium">{factors.orderFulfillment.toFixed(1)}%</span>
+          
+          {/* Tooltip */}
+          {showTooltips && activeTooltip === 'orderFulfillment' && (
+            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+              {factorDescriptions.orderFulfillment}
+            </div>
+          )}
         </div>
-        <div className="text-center">
-          <span className="block text-xs text-text-secondary">Inventory</span>
-          <span className="font-medium">94.5%</span>
+        
+        {/* Inventory Accuracy */}
+        <div 
+          className="text-center relative"
+          onMouseEnter={() => handleMouseEnter('inventoryAccuracy')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="flex items-center justify-center">
+            <span className="block text-xs text-text-secondary mr-1">Inventory</span>
+            {showTooltips && (
+              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+            )}
+          </div>
+          <span className="font-medium">{factors.inventoryAccuracy.toFixed(1)}%</span>
+          
+          {/* Tooltip */}
+          {showTooltips && activeTooltip === 'inventoryAccuracy' && (
+            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+              {factorDescriptions.inventoryAccuracy}
+            </div>
+          )}
         </div>
-        <div className="text-center">
-          <span className="block text-xs text-text-secondary">Space</span>
-          <span className="font-medium">88.3%</span>
+        
+        {/* Space Utilization */}
+        <div 
+          className="text-center relative"
+          onMouseEnter={() => handleMouseEnter('spaceUtilization')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="flex items-center justify-center">
+            <span className="block text-xs text-text-secondary mr-1">Space</span>
+            {showTooltips && (
+              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+            )}
+          </div>
+          <span className="font-medium">{factors.spaceUtilization.toFixed(1)}%</span>
+          
+          {/* Tooltip */}
+          {showTooltips && activeTooltip === 'spaceUtilization' && (
+            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+              {factorDescriptions.spaceUtilization}
+            </div>
+          )}
         </div>
-        <div className="text-center">
-          <span className="block text-xs text-text-secondary">Productivity</span>
-          <span className="font-medium">92.1%</span>
+        
+        {/* Labor Productivity */}
+        <div 
+          className="text-center relative"
+          onMouseEnter={() => handleMouseEnter('laborProductivity')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <div className="flex items-center justify-center">
+            <span className="block text-xs text-text-secondary mr-1">Productivity</span>
+            {showTooltips && (
+              <InformationCircleIcon className="h-3 w-3 text-text-secondary" />
+            )}
+          </div>
+          <span className="font-medium">{factors.laborProductivity.toFixed(1)}%</span>
+          
+          {/* Tooltip */}
+          {showTooltips && activeTooltip === 'laborProductivity' && (
+            <div className="absolute z-10 w-48 px-3 py-2 text-xs text-left bg-background-dark border border-border rounded-md shadow-lg -left-14 -top-16">
+              {factorDescriptions.laborProductivity}
+            </div>
+          )}
         </div>
       </div>
     </div>

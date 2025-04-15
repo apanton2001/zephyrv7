@@ -4,14 +4,39 @@ A comprehensive warehouse management solution built with Next.js and Supabase, f
 
 ## Features
 
-- **Dashboard & Performance Monitoring**: Real-time warehouse KPIs with color-coded indicators
-- **Inventory Management**: CRUD operations, bulk imports, location tracking, barcode support
-- **Predictive Analysis**: AI-driven restock alerts based on historical data modeling
-- **Order Processing**: 7-stage order pipeline with visual timeline
-- **Warehouse Mapping**: 2D visualization of warehouse layout and locations
-- **Task Management**: Assignable tasks with priorities and performance tracking
-- **Client Database**: Comprehensive client information with segmentation capabilities
-- **Mobile-Optimized**: Responsive design works on all devices
+- **Dashboard & Performance Monitoring**: 
+  - Real-time warehouse KPIs with color-coded indicators
+  - Warehouse efficiency calculations combining order fulfillment, inventory accuracy, space utilization, and productivity
+  - Interactive charts tracking performance over time
+
+- **Inventory Management**: 
+  - CRUD operations, bulk imports, location tracking, barcode support
+  - Streamlined invoice import system with preview of stock impact and intelligent warnings
+
+- **Predictive Analysis**: 
+  - AI-driven restock alerts based on historical data modeling
+  - Daily usage rate calculations with confidence scores
+
+- **Order Processing**: 
+  - 7-stage order pipeline with visual timeline
+  - Granular status tracking from "Sent Shipping Details" to "Order Shipped"
+  - Integrated label management for shipping and pallet labels
+
+- **Warehouse Mapping**: 
+  - 2D visualization of warehouse layout and locations
+  - Optimization of product placement for efficient picking
+
+- **Task Management**: 
+  - Assignable tasks with priorities and performance tracking
+  - Task completion rate monitoring
+
+- **Client Database**: 
+  - Comprehensive client information with segmentation capabilities
+  - Order history and patterns analysis
+
+- **Mobile-Optimized**: 
+  - Responsive design works on all devices
+  - High-contrast dark mode optimized for warehouse environments
 
 ## Tech Stack
 
