@@ -1,65 +1,108 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./lib/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
-        // Primary palette
-        primary: {
-          DEFAULT: '#4F46E5', // Indigo
-          dark: '#4338CA',
-          light: '#6366F1',
-        },
-        // Secondary palette 
-        secondary: {
-          DEFAULT: '#1E293B', // Slate
-          dark: '#0F172A',
-          light: '#334155',
-        },
-        // Background colors
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
         background: {
-          dark: '#0B0F19', // Very dark blue
-          DEFAULT: '#111827', // Dark blue gray
-          light: '#1F2937', // Navy blue
-          card: '#1E293B', // Card background
+          DEFAULT: "hsl(var(--background))",
+          dark: "hsl(var(--background-dark))",
+          light: "hsl(var(--background-light))",
+          card: "hsl(var(--background-card))",
         },
-        // Status colors
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+          dark: "hsl(var(--primary-dark))",
+          light: "hsl(var(--primary-light))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+          dark: "hsl(var(--secondary-dark))",
+          light: "hsl(var(--secondary-light))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        // Maintain compatibility with existing color scheme
         status: {
-          success: '#10B981', // Green
-          warning: '#F59E0B', // Amber
-          error: '#EF4444', // Red
-          info: '#3B82F6', // Blue
+          success: "hsl(var(--success))",
+          warning: "hsl(var(--warning))",
+          error: "hsl(var(--error))",
+          info: "hsl(var(--info))",
         },
-        // Text colors
         text: {
-          primary: '#F9FAFB', // Almost white
-          secondary: '#9CA3AF', // Gray
-          muted: '#6B7280', // Dark gray
-        },
-        // Border colors
-        border: {
-          DEFAULT: '#374151', // Medium gray
-          light: '#4B5563', // Lighter gray
+          primary: "hsl(var(--text-primary))",
+          secondary: "hsl(var(--text-secondary))",
+          muted: "hsl(var(--text-muted))",
         },
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+        DEFAULT: "0.5rem",
+      },
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ["var(--font-sans)", ...fontFamily.sans],
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: 0 },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       boxShadow: {
         card: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
       },
-      borderRadius: {
-        DEFAULT: '0.5rem',
-      },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 }
