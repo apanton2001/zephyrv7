@@ -97,9 +97,14 @@ export default function Home() {
               <div className="bg-gradient-to-b from-primary/20 to-transparent absolute inset-0 rounded-lg"></div>
               <div className="relative border border-border rounded-lg overflow-hidden shadow-2xl bg-background-dark">
                 <div className="aspect-[16/9] bg-background-dark">
-                  {/* This would be a screenshot or video of the app dashboard */}
-                  <div className="h-full flex items-center justify-center">
-                    <div className="text-text-muted">Dashboard Preview</div>
+                  {/* Live interactive dashboard preview */}
+                  <div className="w-full h-full">
+                    <iframe 
+                      className="w-full h-full" 
+                      src="/dashboard-preview" 
+                      title="Dashboard Preview" 
+                      aria-label="Interactive preview of the Zephyr dashboard"
+                    ></iframe>
                   </div>
                 </div>
               </div>
