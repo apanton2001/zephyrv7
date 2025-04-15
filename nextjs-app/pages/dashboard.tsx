@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DashboardLayout from '../components/layout/DashboardLayout';
 import StatusCard from '../components/dashboard/StatusCard';
 import EfficiencyScore from '../components/dashboard/EfficiencyScore';
+import { trackEvent, AnalyticsEvents } from '../lib/analytics';
 import { 
   DocumentTextIcon, 
   TruckIcon, 
@@ -10,6 +11,11 @@ import {
 } from '@heroicons/react/24/outline';
 
 export default function Dashboard() {
+  useEffect(() => {
+    // Track page view when dashboard loads
+    trackEvent(AnalyticsEvents.PAGE_VIEW, { page: 'dashboard' });
+  }, []);
+
   return (
     <DashboardLayout title="Command Center">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -52,7 +58,12 @@ export default function Dashboard() {
           <div className="card">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold">Recent Activity</h3>
-              <button className="text-xs text-primary-light">View All</button>
+              <button 
+                className="text-xs text-primary-light"
+                onClick={() => trackEvent(AnalyticsEvents.MENU_CLICK, { item: 'view_all_activity' })}
+              >
+                View All
+              </button>
             </div>
             
             <div className="space-y-3">
