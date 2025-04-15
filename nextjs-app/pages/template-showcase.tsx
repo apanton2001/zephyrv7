@@ -1,7 +1,7 @@
 import React from "react";
 import { NextPage } from "next";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { Button } from "../components/ui/button";
 import { 
   TemplateCard, 
   TemplateCardHeader, 
@@ -10,7 +10,7 @@ import {
   TemplateCardTitle, 
   TemplateCardDescription,
   MetricCard
-} from "@/components/ui/template-card";
+} from "../components/ui/template-card";
 
 // Icons for demo purposes
 const ChartIcon = () => (

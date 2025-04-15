@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 import {
   Card as ShadcnCard,
@@ -8,7 +8,7 @@ import {
   CardTitle as ShadcnCardTitle,
   CardDescription as ShadcnCardDescription,
   CardContent as ShadcnCardContent,
-} from "@/components/ui/card";
+} from "./card";
 
 // Enhanced card that combines Shadcn UI structure with template styling
 
