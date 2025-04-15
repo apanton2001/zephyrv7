@@ -12,6 +12,8 @@ import {
   ClockIcon,
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
+import { TemplateCard, TemplateCardHeader, TemplateCardContent, TemplateCardTitle } from '../components/ui/template-card';
+import { Button } from '../components/ui/button';
 
 export default function Dashboard() {
   // State for last updated time
@@ -86,14 +88,15 @@ export default function Dashboard() {
       {/* Dashboard Header with Refresh Button */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold">Warehouse Performance Dashboard</h2>
-        <button 
-          className={`flex items-center text-sm px-3 py-1.5 rounded-md bg-primary-light/10 text-primary-light ${isRefreshing ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary-light/20'}`}
+        <Button 
+          variant="outline"
+          className="flex items-center gap-1.5 text-primary-light"
           onClick={handleRefresh}
           disabled={isRefreshing}
         >
-          <ArrowPathIcon className={`h-4 w-4 mr-1.5 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <ArrowPathIcon className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
           {isRefreshing ? 'Refreshing...' : 'Refresh Data'}
-        </button>
+        </Button>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -142,58 +145,68 @@ export default function Dashboard() {
         
         <div className="space-y-6">
           {/* Recent Activity */}
-          <div className="card">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold">Recent Activity</h3>
-              <button 
-                className="text-xs text-primary-light"
-                onClick={() => trackEvent(AnalyticsEvents.MENU_CLICK, { item: 'view_all_activity' })}
-              >
-                View All
-              </button>
-            </div>
+          <TemplateCard>
+            <TemplateCardHeader>
+              <div className="flex items-center justify-between">
+                <TemplateCardTitle>Recent Activity</TemplateCardTitle>
+                <Button 
+                  variant="link"
+                  className="h-auto p-0 text-xs text-primary-light"
+                  onClick={() => trackEvent(AnalyticsEvents.MENU_CLICK, { item: 'view_all_activity' })}
+                >
+                  View All
+                </Button>
+              </div>
+            </TemplateCardHeader>
             
-            <div className="space-y-3">
-              {[1, 2, 3].map((_, index) => (
-                <div key={index} className="flex items-start space-x-3 py-2 border-b border-border last:border-0">
-                  <div className="bg-background-light p-2 rounded-full">
-                    <ClockIcon className="h-4 w-4 text-text-secondary" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium">Order #ORD-2876 Shipped</p>
-                    <p className="text-xs text-text-secondary">10 minutes ago</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Order States */}
-          <div className="card">
-            <h3 className="font-semibold mb-4">Order States</h3>
-            <div className="space-y-2">
-              {[
-                { name: 'Awaiting Confirmation', count: 2, percentage: 25 },
-                { name: 'Processing', count: 1, percentage: 40 },
-                { name: 'Picking', count: 3, percentage: 80 },
-                { name: 'Packing', count: 1, percentage: 15 },
-                { name: 'Ready to Ship', count: 2, percentage: 65 },
-              ].map((state, index) => (
-                <div key={index} className="flex items-center py-1">
-                  <span className="text-sm text-text-secondary w-48">{state.name}</span>
-                  <div className="flex-1">
-                    <div className="w-full bg-background-light h-2 rounded-full">
-                      <div 
-                        className="bg-primary h-2 rounded-full" 
-                        style={{ width: `${state.percentage}%` }}
-                      />
+            <TemplateCardContent>
+              <div className="space-y-3">
+                {[1, 2, 3].map((_, index) => (
+                  <div key={index} className="flex items-start space-x-3 py-2 border-b border-border last:border-0">
+                    <div className="bg-background-light p-2 rounded-full">
+                      <ClockIcon className="h-4 w-4 text-text-secondary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Order #ORD-2876 Shipped</p>
+                      <p className="text-xs text-text-secondary">10 minutes ago</p>
                     </div>
                   </div>
-                  <span className="text-sm font-medium ml-3">{state.count}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+                ))}
+              </div>
+            </TemplateCardContent>
+          </TemplateCard>
+          
+          {/* Order States */}
+          <TemplateCard>
+            <TemplateCardHeader>
+              <TemplateCardTitle>Order States</TemplateCardTitle>
+            </TemplateCardHeader>
+            
+            <TemplateCardContent>
+              <div className="space-y-2">
+                {[
+                  { name: 'Awaiting Confirmation', count: 2, percentage: 25 },
+                  { name: 'Processing', count: 1, percentage: 40 },
+                  { name: 'Picking', count: 3, percentage: 80 },
+                  { name: 'Packing', count: 1, percentage: 15 },
+                  { name: 'Ready to Ship', count: 2, percentage: 65 },
+                ].map((state, index) => (
+                  <div key={index} className="flex items-center py-1">
+                    <span className="text-sm text-text-secondary w-48">{state.name}</span>
+                    <div className="flex-1">
+                      <div className="w-full bg-background-light h-2 rounded-full">
+                        <div 
+                          className="bg-primary h-2 rounded-full" 
+                          style={{ width: `${state.percentage}%` }}
+                        />
+                      </div>
+                    </div>
+                    <span className="text-sm font-medium ml-3">{state.count}</span>
+                  </div>
+                ))}
+              </div>
+            </TemplateCardContent>
+          </TemplateCard>
         </div>
       </div>
     </DashboardLayout>
