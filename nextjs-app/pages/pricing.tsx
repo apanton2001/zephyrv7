@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { PricingInteraction } from '../components/ui/pricing-interaction';
 
 export default function Pricing() {
+  // State for pricing period
+  const [annualBilling, setAnnualBilling] = useState(false);
+  
+  // Pricing constants
+  const STARTER_MONTHLY = 49;
+  const STARTER_ANNUAL = 39;
+  const PRO_MONTHLY = 129;
+  const PRO_ANNUAL = 99;
+  
+  // Calculate displayed price based on billing period
+  const getPrice = (monthly: number, annual: number) => {
+    return annualBilling ? annual : monthly;
+  };
+  
+  // Calculate savings percentage
+  const getSavings = (monthly: number, annual: number) => {
+    return Math.round(100 - (annual * 100 / monthly));
+  };
+  
   const pricingTiers = [
     {
       name: 'Starter',
-      price: '$49',
+      price: `$${getPrice(STARTER_MONTHLY, STARTER_ANNUAL)}`,
+      period: '/month',
+      savings: annualBilling ? `Save ${getSavings(STARTER_MONTHLY, STARTER_ANNUAL)}%` : null,
       features: [
         'Up to 3 warehouses',
         '2,000 SKUs',
@@ -19,7 +41,9 @@ export default function Pricing() {
     },
     {
       name: 'Professional',
-      price: '$129',
+      price: `$${getPrice(PRO_MONTHLY, PRO_ANNUAL)}`,
+      period: '/month',
+      savings: annualBilling ? `Save ${getSavings(PRO_MONTHLY, PRO_ANNUAL)}%` : null,
       features: [
         'Up to 10 warehouses',
         'Unlimited SKUs',
@@ -35,6 +59,8 @@ export default function Pricing() {
     {
       name: 'Enterprise',
       price: 'Custom',
+      period: '',
+      savings: null,
       features: [
         'Unlimited warehouses',
         'Unlimited SKUs',
@@ -73,9 +99,37 @@ export default function Pricing() {
           </div>
           
           <h1 className="text-4xl font-bold text-center mb-4">Pricing Plans</h1>
-          <p className="text-text-secondary text-center max-w-2xl mx-auto mb-12">
+          <p className="text-text-secondary text-center max-w-2xl mx-auto mb-6">
             Choose the perfect plan for your warehouse management needs. All plans include a 14-day free trial.
           </p>
+          
+          {/* Interactive pricing selector */}
+          <div className="flex justify-center mb-12">
+            <div className="flex items-center bg-background-light rounded-lg p-2">
+              <button 
+                className={`px-4 py-2 rounded-md transition-colors ${!annualBilling ? 'bg-primary-light text-white' : 'text-text-secondary hover:text-text-primary'}`}
+                onClick={() => setAnnualBilling(false)}
+              >
+                Monthly
+              </button>
+              <button 
+                className={`px-4 py-2 rounded-md transition-colors ${annualBilling ? 'bg-primary-light text-white' : 'text-text-secondary hover:text-text-primary'}`}
+                onClick={() => setAnnualBilling(true)}
+              >
+                Annual <span className="text-xs ml-1 py-0.5 px-2 bg-status-success/20 text-status-success rounded-full">Save 20%</span>
+              </button>
+            </div>
+          </div>
+          
+          {/* Interactive pricing component */}
+          <div className="hidden md:flex justify-center mb-12">
+            <PricingInteraction
+              starterMonth={STARTER_MONTHLY}
+              starterAnnual={STARTER_ANNUAL}
+              proMonth={PRO_MONTHLY}
+              proAnnual={PRO_ANNUAL}
+            />
+          </div>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {pricingTiers.map((tier, index) => (
@@ -92,7 +146,12 @@ export default function Pricing() {
                 <h3 className="text-xl font-bold mb-2">{tier.name}</h3>
                 <div className="mb-6">
                   <span className="text-3xl font-bold">{tier.price}</span>
-                  {tier.price !== 'Custom' && <span className="text-text-secondary">/month</span>}
+                  <span className="text-text-secondary">{tier.period}</span>
+                  {tier.savings && (
+                    <div className="text-xs mt-1 text-status-success">
+                      {tier.savings}
+                    </div>
+                  )}
                 </div>
                 
                 <ul className="space-y-2 mb-8">
