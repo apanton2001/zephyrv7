@@ -1,0 +1,235 @@
+/* 
+ * Template Integration CSS Variables
+ * This file defines CSS variables for integrating the purchased template design system
+ * with our Shadcn UI implementation.
+*/
+
+:root {
+  /* 
+   * TEMPLATE COLOR SYSTEM
+   * Prefixed with --template- to avoid conflicts with Shadcn UI variables
+   */
+  --template-primary: #3b82f6;
+  --template-primary-hover: #2563eb;
+  --template-secondary: #6b7280;
+  --template-secondary-hover: #4b5563;
+  --template-accent: #f59e0b;
+  --template-accent-hover: #d97706;
+  
+  /* Template Grayscale */
+  --template-gray-50: #f9fafb;
+  --template-gray-100: #f3f4f6;
+  --template-gray-200: #e5e7eb;
+  --template-gray-300: #d1d5db;
+  --template-gray-400: #9ca3af;
+  --template-gray-500: #6b7280;
+  --template-gray-600: #4b5563;
+  --template-gray-700: #374151;
+  --template-gray-800: #1f2937;
+  --template-gray-900: #111827;
+  --template-gray-950: #030712;
+  
+  /* Template Semantic Colors */
+  --template-success: #10b981;
+  --template-warning: #f59e0b;
+  --template-error: #ef4444;
+  --template-info: #3b82f6;
+  
+  /* Template Elevations (Shadows) */
+  --template-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --template-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --template-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --template-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --template-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* 
+   * TEMPLATE TYPOGRAPHY SYSTEM
+   */
+  --template-font-family: 'Inter', system-ui, sans-serif;
+  
+  /* Font Weights */
+  --template-font-light: 300;
+  --template-font-normal: 400;
+  --template-font-medium: 500;
+  --template-font-semibold: 600;
+  --template-font-bold: 700;
+  
+  /* Font Sizes */
+  --template-text-xs: 0.75rem;
+  --template-text-sm: 0.875rem;
+  --template-text-base: 1rem;
+  --template-text-lg: 1.125rem;
+  --template-text-xl: 1.25rem;
+  --template-text-2xl: 1.5rem;
+  --template-text-3xl: 1.875rem;
+  --template-text-4xl: 2.25rem;
+  --template-text-5xl: 3rem;
+  
+  /* Line Heights */
+  --template-leading-none: 1;
+  --template-leading-tight: 1.25;
+  --template-leading-snug: 1.375;
+  --template-leading-normal: 1.5;
+  --template-leading-relaxed: 1.625;
+  --template-leading-loose: 2;
+  
+  /* 
+   * TEMPLATE LAYOUT SYSTEM
+   */
+  --template-spacing-unit: 0.25rem;
+  --template-border-radius-sm: 0.125rem;
+  --template-border-radius-md: 0.375rem;
+  --template-border-radius-lg: 0.5rem;
+  --template-border-radius-xl: 0.75rem;
+  --template-border-radius-2xl: 1rem;
+  --template-border-radius-3xl: 1.5rem;
+  --template-border-radius-full: 9999px;
+  
+  /* Component Specific Variables */
+  --template-card-padding: 1.5rem;
+  --template-card-border-radius: var(--template-border-radius-xl);
+  --template-card-border-color: var(--template-gray-200);
+  --template-card-bg: white;
+  --template-card-shadow: var(--template-shadow-md);
+
+  --template-button-padding-y: 0.5rem;
+  --template-button-padding-x: 1rem;
+  --template-button-radius: var(--template-border-radius-md);
+  
+  --template-input-height: 2.5rem;
+  --template-input-padding: 0.5rem 0.75rem;
+  --template-input-radius: var(--template-border-radius-md);
+  --template-input-border: 1px solid var(--template-gray-300);
+}
+
+/* Dark mode overrides */
+.dark {
+  /* Template Colors - Dark Mode */
+  --template-primary: #60a5fa;
+  --template-primary-hover: #93c5fd;
+  --template-secondary: #9ca3af;
+  --template-secondary-hover: #d1d5db;
+  --template-accent: #fbbf24;
+  --template-accent-hover: #fcd34d;
+  
+  /* Template Grayscale - Dark Mode */
+  --template-gray-50: #111827;
+  --template-gray-100: #1f2937;
+  --template-gray-200: #374151;
+  --template-gray-300: #4b5563;
+  --template-gray-400: #6b7280;
+  --template-gray-500: #9ca3af;
+  --template-gray-600: #d1d5db;
+  --template-gray-700: #e5e7eb;
+  --template-gray-800: #f3f4f6;
+  --template-gray-900: #f9fafb;
+  --template-gray-950: #ffffff;
+  
+  /* Template Semantic Colors - Dark Mode */
+  --template-success: #34d399;
+  --template-warning: #fbbf24;
+  --template-error: #f87171;
+  --template-info: #60a5fa;
+  
+  /* Template Elevations (Shadows) - Dark Mode */
+  --template-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --template-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --template-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  --template-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  --template-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  
+  /* Component Specific Variables - Dark Mode */
+  --template-card-border-color: var(--template-gray-700);
+  --template-card-bg: var(--template-gray-800);
+  --template-input-border: 1px solid var(--template-gray-600);
+}
+
+/* Template Utility Classes */
+.template-card {
+  padding: var(--template-card-padding);
+  border-radius: var(--template-card-border-radius);
+  background-color: var(--template-card-bg);
+  border: 1px solid var(--template-card-border-color);
+  box-shadow: var(--template-card-shadow);
+}
+
+.template-card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.template-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--template-shadow-lg);
+}
+
+.template-gradient-bg {
+  background: linear-gradient(135deg, var(--template-primary), var(--template-accent));
+  color: white;
+}
+
+.template-dashboard-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  border-radius: var(--template-border-radius-xl);
+  background-color: var(--template-card-bg);
+  border: 1px solid var(--template-card-border-color);
+  box-shadow: var(--template-shadow-md);
+}
+
+.template-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.template-metric {
+  font-size: var(--template-text-3xl);
+  font-weight: var(--template-font-bold);
+  color: var(--template-gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.template-trend {
+  display: flex;
+  align-items: center;
+  font-size: var(--template-text-sm);
+  font-weight: var(--template-font-medium);
+}
+
+.template-trend-up {
+  color: var(--template-success);
+}
+
+.template-trend-down {
+  color: var(--template-error);
+}
+
+.template-btn-primary {
+  background-color: var(--template-primary);
+  color: white;
+  padding: var(--template-button-padding-y) var(--template-button-padding-x);
+  border-radius: var(--template-button-radius);
+  font-weight: var(--template-font-medium);
+  transition: background-color 0.2s ease;
+}
+
+.template-btn-primary:hover {
+  background-color: var(--template-primary-hover);
+}
+
+.template-btn-secondary {
+  background-color: var(--template-secondary);
+  color: white;
+  padding: var(--template-button-padding-y) var(--template-button-padding-x);
+  border-radius: var(--template-button-radius);
+  font-weight: var(--template-font-medium);
+  transition: background-color 0.2s ease;
+}
+
+.template-btn-secondary:hover {
+  background-color: var(--template-secondary-hover);
+}
+
+/* Additional template styling classes can be added here */

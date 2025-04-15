@@ -1,4 +1,3 @@
-import NumberFlow from '@number-flow/react'
 import React from "react";
 
 export function PricingInteraction ({
@@ -95,11 +94,7 @@ export function PricingInteraction ({
               </p>
               <p className="text-slate-500 text-md flex">
                 <span className="text-black font-medium flex items-center">
-                  ${" "}
-                  <NumberFlow
-                    className="text-black font-medium"
-                    value={starter}
-                  />
+                  ${starter.toFixed(2)}
                 </span>
                 /month
               </p>
@@ -128,11 +123,7 @@ export function PricingInteraction ({
               <p className="font-semibold text-xl text-gray-950">Pro</p>
               <p className="text-slate-500 text-md flex">
                 <span className="text-black font-medium flex items-center">
-                  ${" "}
-                  <NumberFlow
-                    className="text-black font-medium"
-                    value={pro}
-                  />
+                  ${pro.toFixed(2)}
                 </span>
                 /month
               </p>

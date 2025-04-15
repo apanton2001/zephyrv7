@@ -145,7 +145,7 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-border-light;
+    @apply bg-primary/30;
   }
 }
 
@@ -156,7 +156,7 @@
   }
 
   .card-hover {
-    @apply hover:shadow-card-hover hover:border-border-light;
+    @apply hover:shadow-card-hover hover:border-primary/20;
   }
 
   .btn {
@@ -174,7 +174,7 @@
   }
 
   .btn-outline {
-    @apply btn border border-border text-text-primary hover:bg-background-light hover:border-border-light;
+    @apply btn border border-border text-text-primary hover:bg-background-light hover:border-primary/20;
   }
 
   .input {
@@ -217,3 +217,6 @@
     text-wrap: balance;
   }
 }
+
+/* Import Template Integration Styles */
+@import './template-integration.css';
