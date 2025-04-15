@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # Frontend service - Next.js
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://backend:8000
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Backend service - FastAPI
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/
+      - MONGODB_DB_NAME=aiagency
+      - DEBUG=True
+      - CORS_ORIGINS=http://localhost:3000,http://frontend:3000
+      - MAX_WORKERS=4
+    volumes:
+      - ../backend:/app
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  # Task scheduler service
+  scheduler:
+    build:
+      context: ../automation
+      dockerfile: Dockerfile
+    environment:
+      - BACKEND_API_URL=http://backend:8000
+      - MONGODB_URI=mongodb://mongodb:27017/
+      - MONGODB_DB_NAME=aiagency
+      - MAX_CONCURRENT_TASKS=10
+    volumes:
+      - ../automation:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - backend
+      - mongodb
+    restart: unless-stopped
+
+  # MongoDB database
+  mongodb:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  # SeleniumGrid for web scraping
+  selenium-hub:
+    image: selenium/hub:latest
+    ports:
+      - "4444:4444"
+    restart: unless-stopped
+
+  chrome:
+    image: selenium/node-chrome:latest
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_NODE_MAX_SESSIONS=5
+    volumes:
+      - /dev/shm:/dev/shm
+    restart: unless-stopped
+
+  # Redis for caching and task queue
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  redis_data:

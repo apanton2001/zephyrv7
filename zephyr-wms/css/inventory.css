@@ -1,0 +1,492 @@
+/* Inventory Page Specific Styles */
+
+/* Action Buttons in Header */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.action-btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.import-btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+}
+
+.import-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.add-btn {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.add-btn:hover {
+    background-color: var(--accent-secondary);
+}
+
+/* Inventory Overview Cards */
+.overview-cards {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.overview-card {
+    flex: 1;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius);
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(74, 111, 211, 0.1);
+    color: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.overview-card:nth-child(2) .card-icon {
+    background-color: rgba(249, 177, 21, 0.1);
+    color: var(--warning);
+}
+
+.overview-card:nth-child(3) .card-icon {
+    background-color: rgba(229, 83, 83, 0.1);
+    color: var(--danger);
+}
+
+.overview-card:nth-child(4) .card-icon {
+    background-color: rgba(46, 184, 92, 0.1);
+    color: var(--success);
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.card-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.inventory-chart {
+    height: 200px;
+}
+
+/* Inventory Table Controls */
+.table-controls {
+    display: flex;
+    gap: 15px;
+}
+
+.view-selector {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.view-selector button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+}
+
+.view-selector button:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.view-selector button.active {
+    background-color: var(--accent-primary);
+    color: white;
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-btn {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.filter-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    width: 280px;
+    padding: 1rem;
+    z-index: 100;
+    display: none;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* Inventory Table Styles */
+.inventory-table-wrapper {
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+.inventory-table th {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.inventory-table tr {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.inventory-table tr:hover {
+    background-color: rgba(255,255,255,0.03);
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.product-img {
+    width: 36px;
+    height: 36px;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.product-name {
+    font-weight: 500;
+}
+
+.stock-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.stock-badge.critical {
+    background-color: rgba(229, 83, 83, 0.15);
+    color: var(--danger);
+}
+
+.stock-badge.warning {
+    background-color: rgba(249, 177, 21, 0.15);
+    color: var(--warning);
+}
+
+.stock-badge.normal {
+    background-color: rgba(46, 184, 92, 0.15);
+    color: var(--success);
+}
+
+.action-icons {
+    display: flex;
+    gap: 5px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.icon-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* Table Footer */
+.table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.pagination-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.pagination-btn.active {
+    background-color: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+.pagination-ellipsis {
+    color: var(--text-secondary);
+}
+
+.showing-info {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Add Product Modal Specific Styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.form-control {
+    padding: 0.6rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.form-control:disabled {
+    background-color: rgba(0,0,0,0.1);
+    cursor: not-allowed;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.input-with-icon .form-control {
+    padding-left: 25px;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.identifiers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.input-with-label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-with-label .label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.image-upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    background-color: var(--bg-tertiary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.image-upload-area:hover {
+    border-color: var(--accent-primary);
+    background-color: rgba(74,111,211,0.05);
+}
+
+.image-upload-area i {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.image-upload-area p {
+    color: var(--text-secondary);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 992px) {
+    .overview-cards {
+        flex-wrap: wrap;
+    }
+    
+    .overview-card {
+        flex-basis: calc(50% - 7.5px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .action-buttons {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .header-right {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+    
+    .identifiers-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .overview-card {
+        flex-basis: 100%;
+    }
+    
+    .table-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .pagination {
+        margin-bottom: 10px;
+    }
+}

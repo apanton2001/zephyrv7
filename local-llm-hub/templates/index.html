@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local LLM Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Local LLM Hub</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Chat</a></li>
+                    <li><a href="/compare">Compare</a></li>
+                    <li><a href="/models">Models</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                </ul>
+            </nav>
+            <button id="theme-toggle" class="theme-toggle">☀️</button>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <div class="section">
+            <h1>Chat with Local LLMs</h1>
+            
+            <div class="model-selector">
+                <label for="model-select">Select Model:</label>
+                <select id="model-select">
+                    {% for model in models %}
+                    <option value="{{ model.id }}" {% if model.id == selected_model %}selected{% endif %}>
+                        {{ model.name }} {% if not model.available %}(Not installed){% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button class="btn" id="load-model-btn" onclick="loadModel(document.getElementById('model-select').value)">Load Model</button>
+            </div>
+            
+            <div class="parameter-controls">
+                <div class="parameter-control">
+                    <label for="temperature">Temperature:</label>
+                    <input type="range" id="temperature" min="0" max="2" step="0.1" value="0.7">
+                    <span id="temperature-value">0.7</span>
+                </div>
+                
+                <div class="parameter-control">
+                    <label for="top-p">Top P:</label>
+                    <input type="range" id="top-p" min="0" max="1" step="0.05" value="0.9">
+                    <span id="top-p-value">0.9</span>
+                </div>
+                
+                <div class="parameter-control">
+                    <label for="max-length">Max Length:</label>
+                    <input type="range" id="max-length" min="10" max="2000" step="10" value="100">
+                    <span id="max-length-value">100</span>
+                </div>
+            </div>
+            
+            <div class="chat-container">
+                <div class="messages" id="messages"></div>
+                
+                <form id="chat-form" class="message-input">
+                    <textarea id="prompt-input" placeholder="Type your message here..."></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            Local LLM Hub © 2025 - Run your own AI locally
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Update range input display values
+        document.querySelectorAll('input[type="range"]').forEach(input => {
+            const valueDisplay = document.getElementById(`${input.id}-value`);
+            if (valueDisplay) {
+                input.addEventListener('input', () => {
+                    valueDisplay.textContent = input.value;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

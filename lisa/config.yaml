@@ -1,0 +1,111 @@
+# Lisa Configuration File
+
+# System Configuration
+system:
+  name: "Lisa"
+  version: "1.0.0"
+  log_level: "INFO"
+  data_directory: "data"
+  cache_enabled: true
+  cache_ttl: 3600  # 1 hour in seconds
+
+# Email Configuration
+# Note: Do not store real credentials in this file. Set them up interactively with "email setup" command.
+email:
+  preferred_protocol: "imap"
+  imap_server: ""
+  imap_port: 993
+  pop3_server: ""
+  pop3_port: 995
+  smtp_server: ""
+  smtp_port: 587
+  username: ""
+  password: ""  # Will be set securely during setup
+  use_ssl: true
+  max_emails_to_fetch: 100
+  cache_duration: 15  # minutes
+
+# System Access Configuration
+system_access:
+  safety_level: "medium"  # "low", "medium", "high"
+  allowed_paths:
+    - "~/Documents"
+    - "~/Desktop"
+    - "~/Downloads"
+  blocked_paths:
+    - "/etc"
+    - "/var"
+    - "/boot"
+    - "/dev"
+    - "/proc"
+    - "/sys"
+    - "/root"
+    - "/usr/local/bin"
+    - "/usr/bin"
+    - "/bin"
+    - "C:\\Windows\\System32"
+    - "C:\\Windows\\SysWOW64"
+    - "C:\\Program Files"
+    - "C:\\Program Files (x86)"
+
+# LLM Connector Configuration
+llm:
+  cache_enabled: true
+  cache_ttl: 3600  # 1 hour in seconds
+  default_timeout: 30
+  max_retries: 2
+  retry_delay: 1
+  consensus_threshold: 0.7
+  compare_method: "semantic"  # "exact", "semantic", "hybrid"
+  
+  # Define your models here - this is just an example, replace with your actual models
+  models:
+    # Example OpenAI model (you'll need to provide your API key during setup)
+    gpt-4:
+      type: "openai"
+      enabled: true
+      connection:
+        model_id: "gpt-4"
+        capabilities: ["text"]
+        # API key will be set during setup
+
+    # Example Anthropic model
+    claude:
+      type: "anthropic"
+      enabled: true
+      connection:
+        model_id: "claude-2"
+        capabilities: ["text"]
+        # API key will be set during setup
+
+    # Example local Llama model
+    llama-local:
+      type: "llama"
+      enabled: false
+      connection:
+        model_path: "data/models/gguf/llama-2-13b-chat.gguf"
+        context_length: 4096
+        gpu_layers: -1
+        capabilities: ["text"]
+
+# Agents Configuration
+agents:
+  - name: "system"
+    type: "system"
+    model_name: "gpt-4"
+    description: "System agent that handles file, directory, and resource operations"
+    
+  - name: "email"
+    type: "email"
+    model_name: "gpt-4"
+    description: "Email agent that handles email reading, analysis, and communication tasks"
+    
+  - name: "content"
+    type: "content"
+    model_name: "claude"
+    description: "Content agent that generates and analyzes text content"
+    
+  - name: "suggestion"
+    type: "suggestion"
+    model_name: "gpt-4"
+    description: "Suggestion agent that provides recommendations based on contextual analysis"

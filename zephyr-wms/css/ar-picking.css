@@ -1,0 +1,35 @@
+/* AR Picking Assistant Page Styles */
+
+.ar-picking-info {
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.picking-route {
+  margin-bottom: 2rem;
+}
+
+.route-steps {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.ar-visualization {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.ar-placeholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

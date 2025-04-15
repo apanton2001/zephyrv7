@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary-color: 0, 112, 243;
+  --secondary-color: 82, 82, 91;
+  --accent-color: 255, 86, 48;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 30, 30, 30;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Custom components */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+}
+
+.btn-secondary {
+  @apply bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded;
+}
+
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6;
+}
+
+.section {
+  @apply py-12 md:py-24;
+}
+
+/* IDE Integration styles */
+.ide-container {
+  @apply rounded-lg shadow-xl overflow-hidden;
+  min-height: 400px;
+}
+
+/* Tech stack display */
+.tech-card {
+  @apply p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all;
+}
+
+/* Templates marketplace */
+.template-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-xl transition-all;
+}

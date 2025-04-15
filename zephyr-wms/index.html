@@ -1,0 +1,445 @@
+<![CDATA[<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephyr | Advanced Warehouse Management</title>
+    <link rel="stylesheet" href="css/ui-design-system.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+      /* Additional custom styles to enhance UI */
+      body {
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .app-container {
+        box-shadow: 0 0 40px rgba(0,0,0,0.9);
+        border-radius: 16px;
+        overflow: hidden;
+        margin: 40px auto;
+        max-width: 1280px;
+        border: 1px solid #2a3a4a;
+      }
+      #sidebar {
+        background-color: #1a2b3c !important;
+        border-right: none !important;
+        padding-top: 2rem;
+      }
+      #sidebar .nav-links a {
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding: 14px 24px;
+        border-radius: 12px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      #sidebar .nav-links a:hover,
+      #sidebar .nav-links li.active a {
+        background-color: #3a7ff2 !important;
+        color: #fff !important;
+        box-shadow: 0 0 15px #3a7ff2;
+      }
+      #content {
+        background-color: #152a3a !important;
+        padding: 40px;
+        color: #e0e6f1;
+        min-height: 100vh;
+      }
+      .widget {
+        background-color: #1f3a5a !important;
+        border-radius: 16px !important;
+        box-shadow: 0 6px 30px rgba(0,0,0,0.7);
+        padding: 30px;
+        margin-bottom: 40px;
+        transition: transform 0.3s ease;
+      }
+      .widget:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.9);
+      }
+      .widget-header h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #cbd5e1;
+        margin-bottom: 1rem;
+      }
+      .metric-value {
+        font-size: 3.2rem;
+        font-weight: 700;
+        color: #fff;
+      }
+      .metric-label {
+        font-size: 1.1rem;
+        color: #a0aec0;
+        margin-bottom: 1rem;
+      }
+      .status-badge {
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        border-radius: 24px;
+        text-transform: uppercase;
+        box-shadow: 0 0 12px rgba(0,0,0,0.4);
+        user-select: none;
+      }
+      .status-badge.success {
+        background-color: #0dbd8b;
+        color: #fff;
+      }
+      .status-badge.info {
+        background-color: #3a7ff2;
+        color: #fff;
+      }
+      .status-badge.critical {
+        background-color: #f44336;
+        color: #fff;
+      }
+      .status-badge.warning {
+        background-color: #ff9800;
+        color: #fff;
+      }
+      .view-all-btn {
+        background-color: #3a7ff2;
+        color: #fff;
+        font-weight: 700;
+        padding: 14px 28px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 1rem;
+      }
+      .view-all-btn:hover {
+        background-color: #5a9fff;
+      }
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h1>Zephyr</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="inventory.html">
+                        <i class="fas fa-boxes"></i>
+                        Inventory Management
+                    </a>
+                </li>
+                <li>
+                    <a href="predictive-analysis.html">
+                        <i class="fas fa-chart-line"></i>
+                        Predictive Analysis
+                    </a>
+                </li>
+                <li>
+                    <a href="order-processing.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        Order Processing
+                    </a>
+                </li>
+                <li>
+                    <a href="warehouse-locations.html">
+                        <i class="fas fa-warehouse"></i>
+                        Warehouse Locations
+                    </a>
+                </li>
+                <li>
+                    <a href="ar-picking.html">
+                        <i class="fas fa-vr-cardboard"></i>
+                        AR Picking Assistant
+                    </a>
+                </li>
+                <li>
+                    <a href="financial-reporting.html">
+                        <i class="fas fa-chart-pie"></i>
+                        Financial Reports
+                    </a>
+                </li>
+                <li>
+                    <a href="task-management.html">
+                        <i class="fas fa-tasks"></i>
+                        Task Management
+                    </a>
+                </li>
+                <li>
+                    <a href="client-database.html">
+                        <i class="fas fa-users"></i>
+                        Client Database
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">WM</div>
+                    <div class="user-details">
+                        <span class="user-name">Warehouse Manager</span>
+                        <span class="user-role">admin@zephyr.com</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main id="content">
+            <header class="content-header">
+                <div class="header-left">
+                    <button id="sidebar-toggle" class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Zephyr Warehouse Management</h2>
+                </div>
+                <div class="header-right">
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-body">
+                <h2>Dashboard</h2>
+                <p class="welcome-message">Welcome to Zephyr. Here's what's happening with your warehouse today.</p>
+                
+                <div class="dashboard-grid">
+                    <!-- Warehouse Efficiency Score -->
+                    <section class="widget efficiency-score">
+                        <div class="widget-header">
+                            <h3>Warehouse Efficiency</h3>
+                            <div class="trend-indicator positive">
+                                <i class="fas fa-arrow-up"></i> +2.4%
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="efficiency-gauge">
+                                <div class="gauge-value">87</div>
+                                <div class="gauge-label">/100</div>
+                            </div>
+                            <div class="efficiency-details">
+                                <div class="detail-item">
+                                    <span class="label">Order Fulfillment</span>
+                                    <div class="value">93%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Inventory Accuracy</span>
+                                    <div class="value">97%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Space Utilization</span>
+                                    <div class="value">82%</div>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="label">Productivity</span>
+                                    <div class="value">76%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Open Orders -->
+                    <section class="widget open-orders">
+                        <div class="widget-header">
+                            <h3>Open Orders</h3>
+                            <div class="widget-options">
+                                <i class="fas fa-file-export"></i>
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-value">32</div>
+                            <div class="metric-label">orders requiring action</div>
+                            
+                            <div class="order-stages">
+                                <div class="stage">
+                                    <div class="stage-icon">A</div>
+                                </div>
+                                <div class="stage">
+                                    <div class="stage-icon">B</div>
+                                </div>
+                                <div class="stage">
+                                    <div class="stage-icon">C</div>
+                                </div>
+                                <div class="stage">
+                                    <div class="stage-icon">D</div>
+                                </div>
+                                <div class="stage">
+                                    <div class="stage-icon">E</div>
+                                </div>
+                            </div>
+                            
+                            <button class="view-all-btn">
+                                <i class="fas fa-list-ul"></i> View All
+                            </button>
+                        </div>
+                    </section>
+                    
+                    <!-- Inventory Alerts -->
+                    <section class="widget inventory-alerts-summary">
+                        <div class="widget-header">
+                            <h3>Inventory Alerts</h3>
+                            <div class="widget-options">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="metric-value">3</div>
+                            <div class="metric-label">critical alerts</div>
+                            
+                            <div class="alert-tags">
+                                <div class="alert-tag critical">1 Out of stock</div>
+                                <div class="alert-tag warning">2 Low stock</div>
+                            </div>
+                            
+                            <button class="restock-btn">
+                                <i class="fas fa-plus"></i> Restock
+                            </button>
+                        </div>
+                    </section>
+                    
+                    <!-- Recent Orders -->
+                    <section class="widget recent-orders">
+                        <div class="widget-header">
+                            <h3>Recent Orders</h3>
+                            <a href="#" class="view-all-link">View All</a>
+                        </div>
+                        <div class="widget-body">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Customer</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ORD-7829</td>
+                                        <td>Acme Corp</td>
+                                        <td><span class="status-badge success">Order Shipped</span></td>
+                                        <td>10 mins ago</td>
+                                        <td>$1,240.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ORD-7828</td>
+                                        <td>TechNova Inc</td>
+                                        <td><span class="status-badge info">Processing</span></td>
+                                        <td>1 hour ago</td>
+                                        <td>$3,580.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ORD-7827</td>
+                                        <td>Global Supplies</td>
+                                        <td><span class="status-badge success">Sent Shipping Details</span></td>
+                                        <td>3 hours ago</td>
+                                        <td>$890.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ORD-7826</td>
+                                        <td>Quantum Solutions</td>
+                                        <td><span class="status-badge success">Awaiting Pickup</span></td>
+                                        <td>5 hours ago</td>
+                                        <td>$2,310.25</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                    <!-- Inventory Alerts -->
+                    <section class="widget inventory-alerts-detail">
+                        <div class="widget-header">
+                            <h3>Inventory Alerts</h3>
+                            <a href="#" class="view-all-link">View All</a>
+                        </div>
+                        <div class="widget-body">
+                            <div class="alert-items">
+                                <div class="alert-item">
+                                    <div class="alert-item-name">Premium Packing Tape</div>
+                                    <div class="alert-item-status">
+                                        <span class="status-badge critical">Out of stock</span>
+                                    </div>
+                                    <div class="alert-item-time">Today</div>
+                                </div>
+                                <div class="alert-item">
+                                    <div class="alert-item-name">Shipping Boxes (Large)</div>
+                                    <div class="alert-item-status">
+                                        <span class="status-badge warning">Low stock - 5 units remaining</span>
+                                    </div>
+                                    <div class="alert-item-time">1d ago</div>
+                                </div>
+                                <div class="alert-item">
+                                    <div class="alert-item-name">Bubble Wrap Rolls</div>
+                                    <div class="alert-item-status">
+                                        <span class="status-badge warning">Low stock - 3 units remaining</span>
+                                    </div>
+                                    <div class="alert-item-time">1d ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Predictive Inventory Analysis -->
+                    <section class="widget predictive-analysis">
+                        <div class="widget-header">
+                            <h3>Predictive Inventory Analysis</h3>
+                            <button class="report-btn">
+                                <i class="fas fa-chart-bar"></i> View Report
+                            </button>
+                        </div>
+                        <div class="widget-body">
+                            <p class="analysis-description">AI-powered forecasting to prevent stockouts and optimize inventory</p>
+                            
+                            <div class="analysis-metrics">
+                                <div class="analysis-metric">
+                                    <div class="metric-header">
+                                        <i class="fas fa-exclamation-circle critical-icon"></i>
+                                        <span>Critical Items</span>
+                                    </div>
+                                    <div class="metric-value">3</div>
+                                </div>
+                                <div class="analysis-metric">
+                                    <div class="metric-header">
+                                        <i class="fas fa-exclamation-triangle warning-icon"></i>
+                                        <span>Warning Items</span>
+                                    </div>
+                                    <div class="metric-value">8</div>
+                                </div>
+                                <div class="analysis-metric">
+                                    <div class="metric-header">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span>Suggested Restock</span>
+                                    </div>
+                                    <div class="metric-value">12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>]]>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AR Picking Assistant | Zephyr WMS</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/ar-picking.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dark-mode">
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Zephyr</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory Management</a></li>
+        <li><a href="predictive-analysis.html"><i class="fas fa-chart-line"></i> Predictive Analysis</a></li>
+        <li><a href="order-processing.html"><i class="fas fa-shopping-cart"></i> Order Processing</a></li>
+        <li><a href="warehouse-locations.html"><i class="fas fa-warehouse"></i> Warehouse Locations</a></li>
+        <li class="active"><a href="ar-picking.html"><i class="fas fa-vr-cardboard"></i> AR Picking Assistant</a></li>
+        <li><a href="financial-reporting.html"><i class="fas fa-chart-pie"></i> Financial Reports</a></li>
+        <li><a href="task-management.html"><i class="fas fa-tasks"></i> Task Management</a></li>
+        <li><a href="client-database.html"><i class="fas fa-users"></i> Client Database</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">WM</div>
+          <div class="user-details">
+            <span class="user-name">Warehouse Manager</span>
+            <span class="user-role">admin@zephyr.com</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="content">
+      <header class="content-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2>AR Picking Assistant</h2>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <section class="ar-picking-info">
+          <h3>Efficient Picking Routes</h3>
+          <p>Use augmented reality to visualize product locations and optimize picking paths.</p>
+        </section>
+
+        <section class="picking-route">
+          <h3>Current Picking Route</h3>
+          <ol class="route-steps">
+            <li>Go to Zone A - Rack 3</li>
+            <li>Pick 5 units of Power Drill 18V</li>
+            <li>Proceed to Zone B - Rack 1</li>
+            <li>Pick 10 units of Safety Gloves L</li>
+            <li>Complete the route at Packing Station 2</li>
+          </ol>
+        </section>
+
+        <section class="ar-visualization">
+          <h3>AR Visualization</h3>
+          <div class="ar-placeholder">
+            <p>AR view will be displayed here.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/main.js"></script>
+  <script src="js/ar-picking.js"></script>
+</body>
+</html>

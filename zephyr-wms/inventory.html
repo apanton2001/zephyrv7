@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management | Zephyr WMS</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/inventory.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h1>ZEPHYR</h1>
+                <span class="tagline">Warehouse Management</span>
+            </div>
+            
+            <div class="system-status">
+                <div class="status-indicator online">
+                    <span class="status-dot"></span>
+                    <span class="status-text">System Online</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li class="active"><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory</a></li>
+                <li><a href="predictive-analysis.html"><i class="fas fa-chart-line"></i> Predictive Analysis</a></li>
+                <li><a href="order-processing.html"><i class="fas fa-shipping-fast"></i> Order Processing</a></li>
+                <li><a href="warehouse-locations.html"><i class="fas fa-warehouse"></i> Locations</a></li>
+                <li><a href="ar-picking.html"><i class="fas fa-vr-cardboard"></i> AR Picking</a></li>
+                <li><a href="financial-reporting.html"><i class="fas fa-chart-pie"></i> Financial Reports</a></li>
+                <li><a href="task-management.html"><i class="fas fa-tasks"></i> Task Management</a></li>
+                <li><a href="client-database.html"><i class="fas fa-users"></i> Client Database</a></li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img src="assets/avatar-placeholder.txt" alt="User Avatar" class="avatar">
+                    <div class="user-details">
+                        <span class="user-name">Admin User</span>
+                        <span class="user-role">Warehouse Manager</span>
+                    </div>
+                </div>
+                <a href="#" class="settings-link"><i class="fas fa-cog"></i></a>
+                <a href="#" class="logout-link"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main id="content">
+            <header class="content-header">
+                <div class="header-left">
+                    <button id="sidebar-toggle" class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Inventory Management</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search products...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn import-btn" onclick="openImportModal()">
+                            <i class="fas fa-file-import"></i> Import
+                        </button>
+                        <button class="action-btn add-btn" onclick="openAddProductModal()">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-body">
+                <!-- Inventory Overview -->
+                <section class="widget inventory-overview">
+                    <div class="widget-header">
+                        <h3>Inventory Overview</h3>
+                        <div class="widget-options">
+                            <button class="refresh-btn"><i class="fas fa-sync-alt"></i></button>
+                            <button class="options-btn"><i class="fas fa-ellipsis-v"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="overview-cards">
+                            <div class="overview-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="card-details">
+                                    <span class="card-title">Total Products</span>
+                                    <span class="card-value">1,248</span>
+                                </div>
+                            </div>
+                            <div class="overview-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="card-details">
+                                    <span class="card-title">Low Stock</span>
+                                    <span class="card-value">42</span>
+                                </div>
+                            </div>
+                            <div class="overview-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div class="card-details">
+                                    <span class="card-title">Out of Stock</span>
+                                    <span class="card-value">8</span>
+                                </div>
+                            </div>
+                            <div class="overview-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="card-details">
+                                    <span class="card-title">Total Value</span>
+                                    <span class="card-value">$427,839</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inventory-chart">
+                            <canvas id="inventoryValueChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Inventory Table -->
+                <section class="widget inventory-table-container">
+                    <div class="widget-header">
+                        <h3>Products</h3>
+                        <div class="table-controls">
+                            <div class="view-selector">
+                                <button class="active"><i class="fas fa-list"></i></button>
+                                <button><i class="fas fa-th-large"></i></button>
+                            </div>
+                            <div class="filter-dropdown">
+                                <button class="filter-btn">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                                <div class="filter-menu">
+                                    <div class="filter-group">
+                                        <label>Category</label>
+                                        <select>
+                                            <option value="">All Categories</option>
+                                            <option value="tools">Tools</option>
+                                            <option value="electronics">Electronics</option>
+                                            <option value="safety">Safety Gear</option>
+                                            <option value="packaging">Packaging</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Stock Status</label>
+                                        <select>
+                                            <option value="">All Status</option>
+                                            <option value="in-stock">In Stock</option>
+                                            <option value="low-stock">Low Stock</option>
+                                            <option value="out-of-stock">Out of Stock</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-group">
+                                        <label>Location</label>
+                                        <select>
+                                            <option value="">All Locations</option>
+                                            <option value="zone-a">Zone A</option>
+                                            <option value="zone-b">Zone B</option>
+                                            <option value="zone-c">Zone C</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-actions">
+                                        <button class="secondary-btn">Reset</button>
+                                        <button class="primary-btn">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="inventory-table-wrapper">
+                            <table class="inventory-table">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" class="select-all"></th>
+                                        <th>SKU</th>
+                                        <th>Product</th>
+                                        <th>Category</th>
+                                        <th>Location</th>
+                                        <th>Stock</th>
+                                        <th>Unit Price</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" class="select-item"></td>
+                                        <td>WH-1042</td>
+                                        <td>
+                                            <div class="product-info">
+                                                <div class="product-img"></div>
+                                                <div class="product-name">Power Drill 18V</div>
+                                            </div>
+                                        </td>
+                                        <td>Tools</td>
+                                        <td>Zone A - Rack 3</td>
+                                        <td><span class="stock-badge critical">3</span></td>
+                                        <td>$89.99</td>
+                                        <td>Yesterday</td>
+                                        <td>
+                                            <div class="action-icons">
+                                                <button class="icon-btn" title="Edit Product"><i class="fas fa-edit"></i></button>
+                                                <button class="icon-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                                <button class="icon-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="select-item"></td>
+                                        <td>WH-5231</td>
+                                        <td>
+                                            <div class="product-info">
+                                                <div class="product-img"></div>
+                                                <div class="product-name">Safety Gloves L</div>
+                                            </div>
+                                        </td>
+                                        <td>Safety Gear</td>
+                                        <td>Zone B - Rack 1</td>
+                                        <td><span class="stock-badge critical">5</span></td>
+                                        <td>$12.49</td>
+                                        <td>Today</td>
+                                        <td>
+                                            <div class="action-icons">
+                                                <button class="icon-btn" title="Edit Product"><i class="fas fa-edit"></i></button>
+                                                <button class="icon-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                                <button class="icon-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="select-item"></td>
+                                        <td>WH-3089</td>
+                                        <td>
+                                            <div class="product-info">
+                                                <div class="product-img"></div>
+                                                <div class="product-name">Measuring Tape 5m</div>
+                                            </div>
+                                        </td>
+                                        <td>Tools</td>
+                                        <td>Zone A - Rack 2</td>
+                                        <td><span class="stock-badge warning">12</span></td>
+                                        <td>$8.99</td>
+                                        <td>3 days ago</td>
+                                        <td>
+                                            <div class="action-icons">
+                                                <button class="icon-btn" title="Edit Product"><i class="fas fa-edit"></i></button>
+                                                <button class="icon-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                                <button class="icon-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="select-item"></td>
+                                        <td>WH-7452</td>
+                                        <td>
+                                            <div class="product-info">
+                                                <div class="product-img"></div>
+                                                <div class="product-name">Socket Wrench Set</div>
+                                            </div>
+                                        </td>
+                                        <td>Tools</td>
+                                        <td>Zone C - Rack 5</td>
+                                        <td><span class="stock-badge warning">8</span></td>
+                                        <td>$45.99</td>
+                                        <td>1 week ago</td>
+                                        <td>
+                                            <div class="action-icons">
+                                                <button class="icon-btn" title="Edit Product"><i class="fas fa-edit"></i></button>
+                                                <button class="icon-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                                <button class="icon-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="select-item"></td>
+                                        <td>WH-2187</td>
+                                        <td>
+                                            <div class="product-info">
+                                                <div class="product-img"></div>
+                                                <div class="product-name">Digital Multimeter</div>
+                                            </div>
+                                        </td>
+                                        <td>Electronics</td>
+                                        <td>Zone B - Rack 4</td>
+                                        <td><span class="stock-badge normal">24</span></td>
+                                        <td>$79.99</td>
+                                        <td>2 days ago</td>
+                                        <td>
+                                            <div class="action-icons">
+                                                <button class="icon-btn" title="Edit Product"><i class="fas fa-edit"></i></button>
+                                                <button class="icon-btn" title="View Details"><i class="fas fa-eye"></i></button>
+                                                <button class="icon-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="table-footer">
+                            <div class="pagination">
+                                <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn active">1</button>
+                                <button class="pagination-btn">2</button>
+                                <button class="pagination-btn">3</button>
+                                <span class="pagination-ellipsis">...</span>
+                                <button class="pagination-btn">12</button>
+                                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="showing-info">
+                                Showing 1-5 of 248 products
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Add Product Modal (Hidden by default) -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Product</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" placeholder="Enter product name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="productSKU">SKU</label>
+                        <input type="text" id="productSKU" placeholder="Auto-generated" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Category</label>
+                        <select id="productCategory" class="form-control">
+                            <option value="">Select a category</option>
+                            <option value="tools">Tools</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="safety">Safety Gear</option>
+                            <option value="packaging">Packaging</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Unit Price</label>
+                        <div class="input-with-icon">
+                            <span class="icon">$</span>
+                            <input type="number" id="productPrice" placeholder="0.00" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productQuantity">Initial Quantity</label>
+                        <input type="number" id="productQuantity" placeholder="0" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="productLocation">Warehouse Location</label>
+                        <select id="productLocation" class="form-control">
+                            <option value="">Select a location</option>
+                            <option value="zone-a-rack-1">Zone A - Rack 1</option>
+                            <option value="zone-a-rack-2">Zone A - Rack 2</option>
+                            <option value="zone-a-rack-3">Zone A - Rack 3</option>
+                            <option value="zone-b-rack-1">Zone B - Rack 1</option>
+                            <option value="zone-b-rack-2">Zone B - Rack 2</option>
+                            <option value="zone-c-rack-1">Zone C - Rack 1</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" placeholder="Enter product description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="productMinStock">Minimum Stock Level</label>
+                        <input type="number" id="productMinStock" placeholder="0" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="productReorderQty">Reorder Quantity</label>
+                        <input type="number" id="productReorderQty" placeholder="0" class="form-control">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Product Identifiers</label>
+                        <div class="identifiers-grid">
+                            <div class="input-with-label">
+                                <span class="label">UPC</span>
+                                <input type="text" placeholder="Universal Product Code" class="form-control">
+                            </div>
+                            <div class="input-with-label">
+                                <span class="label">EAN</span>
+                                <input type="text" placeholder="European Article Number" class="form-control">
+                            </div>
+                            <div class="input-with-label">
+                                <span class="label">ASIN</span>
+                                <input type="text" placeholder="Amazon Standard ID" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Product Image</label>
+                        <div class="image-upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag and drop image here or <span class="browse-link">browse</span></p>
+                            <p class="supported-formats">Supported formats: JPG, PNG, GIF (Max 5MB)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-btn">Cancel</button>
+                <button class="primary-btn">Add Product</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Import Invoice Modal (Hidden by default) -->
+    <div id="importInvoiceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Import Document</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="document-type-selection">
+                    <h4>Select Document Type</h4>
+                    <div class="document-type-cards">
+                        <div class="type-card selected">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Invoice</span>
+                        </div>
+                        <div class="type-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Order</span>
+                        </div>
+                        <div class="type-card">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Packing Slip</span>
+                        </div>
+                        <div class="type-card">
+                            <i class="fas fa-boxes"></i>
+                            <span>Inventory List</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="extraction-method">
+                    <h4>Extraction Method</h4>
+                    <div class="toggle-switch">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <div class="toggle-labels">
+                            <span class="active">Automatic</span>
+                            <span>Manual</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="supplier-selection">
+                    <h4>Select Supplier/Client</h4>
+                    <div class="search-field">
+                        <input type="text" placeholder="Search suppliers...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="recent-suppliers">
+                        <div class="supplier selected">
+                            <span class="supplier-name">Acme Tools</span>
+                            <span class="supplier-id">SUP-1029</span>
+                        </div>
+                        <div class="supplier">
+                            <span class="supplier-name">BuildRight Inc</span>
+                            <span class="supplier-id">SUP-1042</span>
+                        </div>
+                        <div class="supplier">
+                            <span class="supplier-name">Quality Hardware</span>
+                            <span class="supplier-id">SUP-1103</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="file-upload-area">
+                    <h4>Upload Document</h4>
+                    <div class="upload-zone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag and drop files here or <span class="browse-link">browse</span></p>
+                        <p class="supported-formats">Supported formats: PDF, CSV, XLSX, XML</p>
+                    </div>
+                    <div class="template-link">
+                        <i class="fas fa-download"></i>
+                        <span>Download template for this document type</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="secondary-btn">Cancel</button>
+                <button class="primary-btn">Process Document</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+    <script src="js/inventory.js"></script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Local LLM Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Local LLM Hub</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Chat</a></li>
+                    <li><a href="/compare">Compare</a></li>
+                    <li><a href="/models">Models</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                </ul>
+            </nav>
+            <button id="theme-toggle" class="theme-toggle">☀️</button>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <div class="section">
+            <h1>Settings</h1>
+            
+            <div class="card">
+                <h2>Interface Settings</h2>
+                <form id="interface-settings-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="theme">Theme</label>
+                            <select id="theme" name="theme">
+                                <option value="dark" {% if config.interface.theme == 'dark' %}selected{% endif %}>Dark</option>
+                                <option value="light" {% if config.interface.theme == 'light' %}selected{% endif %}>Light</option>
+                                <option value="system" {% if config.interface.theme == 'system' %}selected{% endif %}>System</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="port">Port</label>
+                            <input type="number" id="port" name="port" value="{{ config.interface.port }}">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="host">Host</label>
+                            <input type="text" id="host" name="host" value="{{ config.interface.host }}">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Save Interface Settings</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <h2>Default Model Parameters</h2>
+                <form id="default-model-settings-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="default-model">Default Model</label>
+                            <select id="default-model" name="default-model">
+                                {% for model in models %}
+                                <option value="{{ model.id }}" {% if model.id == default_model %}selected{% endif %}>
+                                    {{ model.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="temperature">Default Temperature</label>
+                            <input type="range" id="temperature" name="temperature" min="0" max="2" step="0.1" value="0.7">
+                            <span id="temperature-value">0.7</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="top-p">Default Top P</label>
+                            <input type="range" id="top-p" name="top-p" min="0" max="1" step="0.05" value="0.9">
+                            <span id="top-p-value">0.9</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="max-length">Default Max Length</label>
+                            <input type="range" id="max-length" name="max-length" min="10" max="4000" step="10" value="2048">
+                            <span id="max-length-value">2048</span>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Save Model Settings</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <h2>Performance Settings</h2>
+                <form id="performance-settings-form">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="memory-limit">Memory Limit (GB)</label>
+                            <input type="number" id="memory-limit" name="memory-limit" min="1" max="128" value="16">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="thread-count">Thread Count</label>
+                            <input type="number" id="thread-count" name="thread-count" min="1" max="64" value="4">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="gpu-layers">GPU Layers</label>
+                            <input type="number" id="gpu-layers" name="gpu-layers" min="0" max="100" value="50">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>
+                                <input type="checkbox" id="prefer-cpu" name="prefer-cpu">
+                                Prefer CPU over GPU
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Save Performance Settings</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <h2>System Information</h2>
+                <div class="system-info">
+                    <div class="info-item">
+                        <span class="info-label">Operating System:</span>
+                        <span class="info-value" id="os-info">Loading...</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">CPU:</span>
+                        <span class="info-value" id="cpu-info">Loading...</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">RAM:</span>
+                        <span class="info-value" id="ram-info">Loading...</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">GPU:</span>
+                        <span class="info-value" id="gpu-info">Loading...</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">Python Version:</span>
+                        <span class="info-value" id="python-info">Loading...</span>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span class="info-label">Local LLM Hub Version:</span>
+                        <span class="info-value">1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            Local LLM Hub © 2025 - Run your own AI locally
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Update range input display values
+        document.querySelectorAll('input[type="range"]').forEach(input => {
+            const valueDisplay = document.getElementById(`${input.id}-value`);
+            if (valueDisplay) {
+                input.addEventListener('input', () => {
+                    valueDisplay.textContent = input.value;
+                });
+            }
+        });
+        
+        // Interface settings form
+        document.getElementById('interface-settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const settings = {
+                theme: document.getElementById('theme').value,
+                port: parseInt(document.getElementById('port').value),
+                host: document.getElementById('host').value
+            };
+            
+            // Simulate saving settings
+            console.log('Saving interface settings:', settings);
+            alert('Interface settings saved! You may need to restart the application for some changes to take effect.');
+        });
+        
+        // Default model settings form
+        document.getElementById('default-model-settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const settings = {
+                default_model: document.getElementById('default-model').value,
+                temperature: parseFloat(document.getElementById('temperature').value),
+                top_p: parseFloat(document.getElementById('top-p').value),
+                max_length: parseInt(document.getElementById('max-length').value)
+            };
+            
+            // Simulate saving settings
+            console.log('Saving model settings:', settings);
+            alert('Model settings saved!');
+        });
+        
+        // Performance settings form
+        document.getElementById('performance-settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const settings = {
+                memory_limit: parseInt(document.getElementById('memory-limit').value),
+                thread_count: parseInt(document.getElementById('thread-count').value),
+                gpu_layers: parseInt(document.getElementById('gpu-layers').value),
+                prefer_cpu: document.getElementById('prefer-cpu').checked
+            };
+            
+            // Simulate saving settings
+            console.log('Saving performance settings:', settings);
+            alert('Performance settings saved! These changes will apply the next time you load a model.');
+        });
+        
+        // Simulate loading system information
+        setTimeout(() => {
+            document.getElementById('os-info').textContent = 'Windows 10 Professional';
+            document.getElementById('cpu-info').textContent = 'Intel Core i7-10700K (8 cores, 16 threads)';
+            document.getElementById('ram-info').textContent = '32 GB DDR4';
+            document.getElementById('gpu-info').textContent = 'NVIDIA GeForce RTX 3080 (10 GB)';
+            document.getElementById('python-info').textContent = '3.10.4';
+        }, 500);
+    </script>
+    
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .info-item {
+            padding: 0.75rem;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid, .system-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

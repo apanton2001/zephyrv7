@@ -1,0 +1,46 @@
+interface:
+  theme: dark
+  port: 8000
+  host: 127.0.0.1
+
+models:
+  # These are sample entries for models that will be installed with install_models.py
+  # The actual entries will be generated when models are installed
+  llama3.1-8b:
+    path: ./models/llama3.1-8b
+    type: llama
+    name: Llama 3.1 (8B)
+    parameters:
+      temperature: 0.7
+      top_p: 0.9
+      max_length: 2048
+  
+  mistral-7b:
+    path: ./models/mistral-7b
+    type: mistral
+    name: Mistral (7B)
+    parameters:
+      temperature: 0.7
+      top_p: 0.9
+      max_length: 2048
+  
+  vicuna-7b:
+    path: ./models/vicuna-7b
+    type: vicuna
+    name: Vicuna (7B)
+    parameters:
+      temperature: 0.8
+      top_p: 0.9
+      max_length: 2048
+
+# Advanced settings
+performance:
+  memory_limit: 16  # Maximum RAM usage in GB
+  thread_count: 4   # Number of CPU threads to use
+  gpu_layers: 50    # Number of layers to offload to GPU (0 = CPU only)
+  prefer_cpu: false # Set to true to use CPU even if GPU is available
+
+system:
+  log_level: info  # debug, info, warning, error, critical
+  save_conversations: true
+  enable_telemetry: false  # No data is actually collected, this is just a placeholder

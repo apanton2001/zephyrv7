@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Models - Local LLM Hub</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Local LLM Hub</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Chat</a></li>
+                    <li><a href="/compare">Compare</a></li>
+                    <li><a href="/models">Models</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                </ul>
+            </nav>
+            <button id="theme-toggle" class="theme-toggle">☀️</button>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <div class="section">
+            <h1>Compare Model Responses</h1>
+            
+            <div class="card">
+                <form id="comparison-form">
+                    <div class="input-group">
+                        <label for="comparison-prompt">Enter a prompt to test across models:</label>
+                        <textarea id="comparison-prompt" placeholder="Enter your prompt here..."></textarea>
+                    </div>
+                    
+                    <div class="parameter-controls">
+                        <div class="parameter-control">
+                            <label for="comparison-temperature">Temperature:</label>
+                            <input type="range" id="comparison-temperature" min="0" max="2" step="0.1" value="0.7">
+                            <span id="comparison-temperature-value">0.7</span>
+                        </div>
+                        
+                        <div class="parameter-control">
+                            <label for="comparison-top-p">Top P:</label>
+                            <input type="range" id="comparison-top-p" min="0" max="1" step="0.05" value="0.9">
+                            <span id="comparison-top-p-value">0.9</span>
+                        </div>
+                        
+                        <div class="parameter-control">
+                            <label for="comparison-max-length">Max Length:</label>
+                            <input type="range" id="comparison-max-length" min="10" max="2000" step="10" value="100">
+                            <span id="comparison-max-length-value">100</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Select models to compare:</label>
+                        <div class="models-grid">
+                            {% for model in models %}
+                            <div class="model-card">
+                                <input type="checkbox" id="model-{{ model.id }}" class="comparison-model-checkbox" value="{{ model.id }}" {% if model.id == selected_model %}checked{% endif %}>
+                                <label for="model-{{ model.id }}">{{ model.name }}</label>
+                                {% if not model.available %}<span class="warning">(Not installed)</span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">Compare Models</button>
+                </form>
+            </div>
+            
+            <div id="comparison-results" class="comparison-container">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            Local LLM Hub © 2025 - Run your own AI locally
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Update range input display values
+        document.querySelectorAll('input[type="range"]').forEach(input => {
+            const valueDisplay = document.getElementById(`${input.id}-value`);
+            if (valueDisplay) {
+                input.addEventListener('input', () => {
+                    valueDisplay.textContent = input.value;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

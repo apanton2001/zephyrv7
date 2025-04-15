@@ -1,0 +1,17 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.4.2
+pydantic-settings==2.0.3
+python-jose==3.3.0
+passlib==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.6
+websockets==11.0.3
+pymongo==4.5.0
+motor==3.3.1
+scrapy==2.10.0
+selenium==4.15.2
+beautifulsoup4==4.12.2
+requests==2.31.0
+asyncio==3.4.3
+aiohttp==3.8.6

@@ -1,0 +1,169 @@
+/* Predictive Analysis Page Styles */
+
+.analysis-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.analysis-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.analysis-metric {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.3s ease;
+}
+
+.analysis-metric:hover {
+  background-color: var(--bg-elevated);
+}
+
+.analysis-metric.critical {
+  border-left: 4px solid var(--danger);
+}
+
+.analysis-metric.warning {
+  border-left: 4px solid var(--warning);
+}
+
+.analysis-metric.info {
+  border-left: 4px solid var(--info);
+}
+
+.analysis-metric.suggested {
+  border-left: 4px solid var(--success);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.metric-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metric-subtext {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.metric-subtext.positive {
+  color: var(--success);
+}
+
+.stockout-predictions {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.section-actions button {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.section-actions button:hover {
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+.predictions-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-primary);
+}
+
+.predictions-table th,
+.predictions-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.predictions-table th {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.predictions-table tr.critical {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+.predictions-table tr.warning {
+  background-color: rgba(255, 152, 0, 0.1);
+}
+
+.sku {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.inventory-health {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  filter: drop-shadow(0 0 6px var(--accent-primary));
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.inventory-health h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .analysis-metrics {
+    grid-template-columns: 1fr;
+  }
+}

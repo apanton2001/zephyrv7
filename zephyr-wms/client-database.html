@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Client Database | Zephyr WMS</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/client-database.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dark-mode">
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Zephyr</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory Management</a></li>
+        <li><a href="predictive-analysis.html"><i class="fas fa-chart-line"></i> Predictive Analysis</a></li>
+        <li><a href="order-processing.html"><i class="fas fa-shopping-cart"></i> Order Processing</a></li>
+        <li><a href="warehouse-locations.html"><i class="fas fa-warehouse"></i> Warehouse Locations</a></li>
+        <li><a href="ar-picking.html"><i class="fas fa-vr-cardboard"></i> AR Picking Assistant</a></li>
+        <li><a href="financial-reporting.html"><i class="fas fa-chart-pie"></i> Financial Reports</a></li>
+        <li><a href="task-management.html"><i class="fas fa-tasks"></i> Task Management</a></li>
+        <li class="active"><a href="client-database.html"><i class="fas fa-users"></i> Client Database</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">WM</div>
+          <div class="user-details">
+            <span class="user-name">Warehouse Manager</span>
+            <span class="user-role">admin@zephyr.com</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="content">
+      <header class="content-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2>Client Database</h2>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <section class="client-list">
+          <h3>Clients</h3>
+          <div class="search-container">
+            <input type="text" id="clientSearch" placeholder="Search clients..." />
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+          </div>
+          <table class="clients-table">
+            <thead>
+              <tr>
+                <th>Client ID</th>
+                <th>Company Name</th>
+                <th>Contact Name</th>
+                <th>Contact Email</th>
+                <th>Order History</th>
+                <th>Account Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="clientTableBody">
+              <tr>
+                <td>CL-1001</td>
+                <td>Acme Corp</td>
+                <td>John Doe</td>
+                <td>john.doe@acme.com</td>
+                <td>15 orders</td>
+                <td><span class="status-badge active">Active</span></td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>CL-1002</td>
+                <td>Global Supplies</td>
+                <td>Maria Smith</td>
+                <td>maria.smith@globalsupplies.com</td>
+                <td>8 orders</td>
+                <td><span class="status-badge inactive">Inactive</span></td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>CL-1003</td>
+                <td>TechNova Inc</td>
+                <td>Frank Thompson</td>
+                <td>frank.thompson@technova.com</td>
+                <td>22 orders</td>
+                <td><span class="status-badge active">Active</span></td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/main.js"></script>
+  <script src="js/client-database.js"></script>
+</body>
+</html>

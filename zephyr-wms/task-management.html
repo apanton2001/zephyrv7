@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Task Management | Zephyr WMS</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/task-management.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dark-mode">
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Zephyr</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory Management</a></li>
+        <li><a href="predictive-analysis.html"><i class="fas fa-chart-line"></i> Predictive Analysis</a></li>
+        <li><a href="order-processing.html"><i class="fas fa-shopping-cart"></i> Order Processing</a></li>
+        <li><a href="warehouse-locations.html"><i class="fas fa-warehouse"></i> Warehouse Locations</a></li>
+        <li><a href="ar-picking.html"><i class="fas fa-vr-cardboard"></i> AR Picking Assistant</a></li>
+        <li><a href="financial-reporting.html"><i class="fas fa-chart-pie"></i> Financial Reports</a></li>
+        <li class="active"><a href="task-management.html"><i class="fas fa-tasks"></i> Task Management</a></li>
+        <li><a href="client-database.html"><i class="fas fa-users"></i> Client Database</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">WM</div>
+          <div class="user-details">
+            <span class="user-name">Warehouse Manager</span>
+            <span class="user-role">admin@zephyr.com</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="content">
+      <header class="content-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2>Task Management</h2>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <section class="task-list">
+          <h3>Assigned Tasks</h3>
+          <table class="tasks-table">
+            <thead>
+              <tr>
+                <th>Task ID</th>
+                <th>Description</th>
+                <th>Assigned To</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TASK-001</td>
+                <td>Reorganize Zone B</td>
+                <td>John D.</td>
+                <td>High</td>
+                <td><span class="status-badge in-progress">In Progress</span></td>
+                <td>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                  <button class="icon-btn" title="Complete"><i class="fas fa-check"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>TASK-002</td>
+                <td>Inventory Audit</td>
+                <td>Maria S.</td>
+                <td>Medium</td>
+                <td><span class="status-badge pending">Pending</span></td>
+                <td>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                  <button class="icon-btn" title="Complete"><i class="fas fa-check"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>TASK-003</td>
+                <td>Update Safety Protocols</td>
+                <td>Frank T.</td>
+                <td>Low</td>
+                <td><span class="status-badge completed">Completed</span></td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/main.js"></script>
+  <script src="js/task-management.js"></script>
+</body>
+</html>

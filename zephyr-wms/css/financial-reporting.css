@@ -1,0 +1,54 @@
+/* Financial Reporting Page Styles */
+
+.financial-summary {
+  margin-bottom: 2rem;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.summary-card {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  flex: 1 1 200px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.card-title {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.financial-charts {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.financial-charts h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .summary-cards {
+    flex-direction: column;
+  }
+}

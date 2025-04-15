@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order Processing | Zephyr WMS</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/order-processing.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="dark-mode">
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Zephyr</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory Management</a></li>
+        <li><a href="predictive-analysis.html"><i class="fas fa-chart-line"></i> Predictive Analysis</a></li>
+        <li class="active"><a href="order-processing.html"><i class="fas fa-shopping-cart"></i> Order Processing</a></li>
+        <li><a href="warehouse-locations.html"><i class="fas fa-warehouse"></i> Warehouse Locations</a></li>
+        <li><a href="ar-picking.html"><i class="fas fa-vr-cardboard"></i> AR Picking Assistant</a></li>
+        <li><a href="financial-reporting.html"><i class="fas fa-chart-pie"></i> Financial Reports</a></li>
+        <li><a href="task-management.html"><i class="fas fa-tasks"></i> Task Management</a></li>
+        <li><a href="client-database.html"><i class="fas fa-users"></i> Client Database</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">WM</div>
+          <div class="user-details">
+            <span class="user-name">Warehouse Manager</span>
+            <span class="user-role">admin@zephyr.com</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="content">
+      <header class="content-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2>Order Processing</h2>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <section class="order-status-tracking">
+          <h3>Order Status Tracking</h3>
+          <div class="status-stages">
+            <div class="stage active">Sent Shipping Details</div>
+            <div class="stage">Processing</div>
+            <div class="stage">Picking</div>
+            <div class="stage">Packing</div>
+            <div class="stage">Labeling</div>
+            <div class="stage">Awaiting Pickup</div>
+            <div class="stage">Order Shipped</div>
+          </div>
+        </section>
+
+        <section class="order-list">
+          <h3>Current Orders</h3>
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ORD-1001</td>
+                <td>Acme Corp</td>
+                <td><span class="status-badge processing">Processing</span></td>
+                <td>High</td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>ORD-1002</td>
+                <td>Global Supplies</td>
+                <td><span class="status-badge picking">Picking</span></td>
+                <td>Medium</td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td>ORD-1003</td>
+                <td>Quantum Solutions</td>
+                <td><span class="status-badge packing">Packing</span></td>
+                <td>Low</td>
+                <td>
+                  <button class="icon-btn" title="View"><i class="fas fa-eye"></i></button>
+                  <button class="icon-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="js/main.js"></script>
+  <script src="js/order-processing.js"></script>
+</body>
+</html>

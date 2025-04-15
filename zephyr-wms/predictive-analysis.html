@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Predictive Inventory Analysis | Zephyr WMS</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/predictive-analysis.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-mode">
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h1>Zephyr</h1>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory Management</a></li>
+        <li class="active"><a href="predictive-analysis.html"><i class="fas fa-chart-line"></i> Predictive Analysis</a></li>
+        <li><a href="order-processing.html"><i class="fas fa-shopping-cart"></i> Order Processing</a></li>
+        <li><a href="warehouse-locations.html"><i class="fas fa-warehouse"></i> Warehouse Locations</a></li>
+        <li><a href="ar-picking.html"><i class="fas fa-vr-cardboard"></i> AR Picking Assistant</a></li>
+        <li><a href="financial-reporting.html"><i class="fas fa-chart-pie"></i> Financial Reports</a></li>
+        <li><a href="task-management.html"><i class="fas fa-tasks"></i> Task Management</a></li>
+        <li><a href="client-database.html"><i class="fas fa-users"></i> Client Database</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">WM</div>
+          <div class="user-details">
+            <span class="user-name">Warehouse Manager</span>
+            <span class="user-role">admin@zephyr.com</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="content">
+      <header class="content-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2>Predictive Inventory Analysis</h2>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <p class="analysis-description">
+          AI-powered forecasting to prevent stockouts and optimize inventory levels.
+        </p>
+
+        <div class="analysis-metrics">
+          <div class="analysis-metric critical">
+            <div class="metric-header">
+              <i class="fas fa-exclamation-circle"></i>
+              <span>Critical Items</span>
+            </div>
+            <div class="metric-value">3</div>
+            <div class="metric-subtext">Stockout predicted in 0-7 days</div>
+          </div>
+          <div class="analysis-metric warning">
+            <div class="metric-header">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span>Warning Items</span>
+            </div>
+            <div class="metric-value">8</div>
+            <div class="metric-subtext">Stockout predicted in 8-14 days</div>
+          </div>
+          <div class="analysis-metric info">
+            <div class="metric-header">
+              <i class="fas fa-chart-bar"></i>
+              <span>Forecasting Accuracy</span>
+            </div>
+            <div class="metric-value">92%</div>
+            <div class="metric-subtext positive">+2.4% vs last month</div>
+          </div>
+          <div class="analysis-metric suggested">
+            <div class="metric-header">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Recommended POs</span>
+            </div>
+            <div class="metric-value">5</div>
+            <div class="metric-subtext">$4,250.00 total value</div>
+          </div>
+        </div>
+
+        <section class="stockout-predictions">
+          <div class="section-header">
+            <h3>Stockout Predictions</h3>
+            <div class="section-actions">
+              <button class="secondary-btn">Export</button>
+              <button class="secondary-btn">Filter</button>
+            </div>
+          </div>
+          <table class="predictions-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Current Stock</th>
+                <th>Daily Usage</th>
+                <th>Days Until Stockout</th>
+                <th>Confidence</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="critical">
+                <td>Shipping Boxes (Large)<br /><span class="sku">SKU-1003</span></td>
+                <td>5</td>
+                <td>1.2</td>
+                <td>4 days</td>
+                <td>92%</td>
+                <td><span class="status-badge critical">Critical</span></td>
+              </tr>
+              <tr class="critical">
+                <td>Premium Packing Tape<br /><span class="sku">SKU-2001</span></td>
+                <td>0</td>
+                <td>2.5</td>
+                <td>Out of stock</td>
+                <td>99%</td>
+                <td><span class="status-badge critical">Critical</span></td>
+              </tr>
+              <tr class="critical">
+                <td>Bubble Wrap Rolls<br /><span class="sku">SKU-3001</span></td>
+                <td>3</td>
+                <td>0.5</td>
+                <td>6 days</td>
+                <td>88%</td>
+                <td><span class="status-badge critical">Critical</span></td>
+              </tr>
+              <tr class="warning">
+                <td>Corrugated Mailers<br /><span class="sku">SKU-4205</span></td>
+                <td>15</td>
+                <td>1.1</td>
+                <td>13 days</td>
+                <td>85%</td>
+                <td><span class="status-badge warning">Warning</span></td>
+              </tr>
+              <tr class="warning">
+                <td>Stretch Wrap<br /><span class="sku">SKU-6001</span></td>
+                <td>12</td>
+                <td>0.9</td>
+                <td>13 days</td>
+                <td>82%</td>
+                <td><span class="status-badge warning">Warning</span></td>
+              </tr>
+              <tr class="warning">
+                <td>Kraft Paper Roll<br /><span class="sku">SKU-3288</span></td>
+                <td>24</td>
+                <td>1.7</td>
+                <td>14 days</td>
+                <td>78%</td>
+                <td><span class="status-badge warning">Warning</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="inventory-health">
+          <h3>Inventory Health</h3>
+          <canvas id="inventoryHealthChart"></canvas>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/predictive-analysis.js"></script>
+</body>
+</html>
