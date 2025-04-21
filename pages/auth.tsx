@@ -75,10 +75,11 @@ export default function AuthPage() {
               },
             }}
             view={signup ? 'sign_up' : 'sign_in'}
-            redirectTo={`${process.env.NEXT_PUBLIC_APP_URL}/dashboard`}
+            redirectTo={`${process.env.NEXT_PUBLIC_APP_URL || window.location.origin}/dashboard`}
             magicLink={true}
-            providers={['google', 'github']}
-            socialLayout="horizontal"
+            // Removing social providers since they aren't configured in Supabase
+            // providers={['google', 'github']}
+            // socialLayout="horizontal"
           />
         </div>
         
