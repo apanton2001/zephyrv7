@@ -1,0 +1,222 @@
+{
+  "casa": {
+    "translations": ["house", "home", "residence"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Esta es mi casa.", "translated": "This is my house."},
+      {"original": "Vamos a casa.", "translated": "Let's go home."}
+    ],
+    "topics": ["buildings", "family"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "tiempo": {
+    "translations": ["time", "weather"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "No tengo tiempo.", "translated": "I don't have time."},
+      {"original": "¿Qué tiempo hace?", "translated": "What's the weather like?"}
+    ],
+    "topics": ["basic", "weather"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "hombre": {
+    "translations": ["man", "mankind", "husband"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "El hombre está cansado.", "translated": "The man is tired."},
+      {"original": "Es un buen hombre.", "translated": "He is a good man."}
+    ],
+    "topics": ["people"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "mujer": {
+    "translations": ["woman", "wife"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "La mujer habla español.", "translated": "The woman speaks Spanish."},
+      {"original": "Mi mujer es doctora.", "translated": "My wife is a doctor."}
+    ],
+    "topics": ["people"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "agua": {
+    "translations": ["water"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Quiero un vaso de agua.", "translated": "I want a glass of water."},
+      {"original": "El agua está fría.", "translated": "The water is cold."}
+    ],
+    "topics": ["food", "nature"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "comida": {
+    "translations": ["food", "meal"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "La comida está lista.", "translated": "The food is ready."},
+      {"original": "Me gusta la comida mexicana.", "translated": "I like Mexican food."}
+    ],
+    "topics": ["food"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "libro": {
+    "translations": ["book"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Este libro es interesante.", "translated": "This book is interesting."},
+      {"original": "Estoy leyendo un libro.", "translated": "I am reading a book."}
+    ],
+    "topics": ["education", "leisure"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "amigo": {
+    "translations": ["friend"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Él es mi amigo.", "translated": "He is my friend."},
+      {"original": "Tengo muchos amigos.", "translated": "I have many friends."}
+    ],
+    "topics": ["people", "relationships"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "trabajo": {
+    "translations": ["work", "job"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Voy al trabajo.", "translated": "I'm going to work."},
+      {"original": "Me gusta mi trabajo.", "translated": "I like my job."}
+    ],
+    "topics": ["work", "business"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "día": {
+    "translations": ["day"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Hoy es un bonito día.", "translated": "Today is a nice day."},
+      {"original": "Trabajo cinco días a la semana.", "translated": "I work five days a week."}
+    ],
+    "topics": ["time", "basic"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "noche": {
+    "translations": ["night"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Buenas noches.", "translated": "Good night."},
+      {"original": "Me gusta caminar por la noche.", "translated": "I like walking at night."}
+    ],
+    "topics": ["time", "basic"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "ciudad": {
+    "translations": ["city"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Vivo en la ciudad.", "translated": "I live in the city."},
+      {"original": "Es una ciudad grande.", "translated": "It's a big city."}
+    ],
+    "topics": ["places", "geography"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "país": {
+    "translations": ["country", "nation"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "España es un país bonito.", "translated": "Spain is a beautiful country."},
+      {"original": "¿De qué país eres?", "translated": "What country are you from?"}
+    ],
+    "topics": ["geography", "politics"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "escuela": {
+    "translations": ["school"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Los niños van a la escuela.", "translated": "The children go to school."},
+      {"original": "La escuela está cerca.", "translated": "The school is nearby."}
+    ],
+    "topics": ["education", "places"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "universidad": {
+    "translations": ["university"],
+    "partOfSpeech": "noun",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Estudio en la universidad.", "translated": "I study at the university."},
+      {"original": "La universidad está lejos.", "translated": "The university is far away."}
+    ],
+    "topics": ["education", "places"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "aprender": {
+    "translations": ["to learn"],
+    "partOfSpeech": "verb",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Quiero aprender español.", "translated": "I want to learn Spanish."},
+      {"original": "Es difícil aprender un idioma.", "translated": "It's difficult to learn a language."}
+    ],
+    "topics": ["education", "language"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "hablar": {
+    "translations": ["to speak", "to talk"],
+    "partOfSpeech": "verb",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Puedo hablar español.", "translated": "I can speak Spanish."},
+      {"original": "Me gusta hablar con mis amigos.", "translated": "I like talking with my friends."}
+    ],
+    "topics": ["communication", "language"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "comer": {
+    "translations": ["to eat"],
+    "partOfSpeech": "verb",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Me gusta comer pasta.", "translated": "I like to eat pasta."},
+      {"original": "Vamos a comer.", "translated": "Let's eat."}
+    ],
+    "topics": ["food", "actions"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "beber": {
+    "translations": ["to drink"],
+    "partOfSpeech": "verb",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Quiero beber agua.", "translated": "I want to drink water."},
+      {"original": "No bebas mucho café.", "translated": "Don't drink too much coffee."}
+    ],
+    "topics": ["food", "actions"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  },
+  "estudiar": {
+    "translations": ["to study"],
+    "partOfSpeech": "verb",
+    "difficulty": "beginner",
+    "examples": [
+      {"original": "Necesito estudiar para el examen.", "translated": "I need to study for the exam."},
+      {"original": "¿Dónde estudias?", "translated": "Where do you study?"}
+    ],
+    "topics": ["education", "actions"],
+    "audioUrl": "data:audio/mp3;base64,MOCK_AUDIO_DATA"
+  }
+}

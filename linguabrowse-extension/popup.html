@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguaBrowse</title>
+  <style>
+    :root {
+      --primary-color: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --text-color: #1f2937;
+      --text-light: #6b7280;
+      --border-color: #e5e7eb;
+      --bg-light: #f9fafb;
+      --bg-white: #ffffff;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --radius: 8px;
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: 360px;
+      min-height: 500px;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-color);
+      background-color: var(--bg-white);
+    }
+
+    header {
+      padding: 16px 20px;
+      background: var(--primary-gradient);
+      color: white;
+      position: relative;
+    }
+
+    .nav-tabs {
+      display: flex;
+      margin-top: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .nav-tab {
+      padding: 8px 12px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: var(--transition);
+      border-bottom: 2px solid transparent;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .nav-tab.active {
+      opacity: 1;
+      border-color: white;
+    }
+
+    .nav-tab:hover {
+      opacity: 0.9;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background-color: white;
+      color: var(--primary-color);
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Dashboard Tab */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background-color: var(--bg-light);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: center;
+    }
+
+    .streak-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--bg-light);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .streak-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .streak-value {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .streak-label {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .streak-icon {
+      color: var(--warning-color);
+      font-size: 24px;
+    }
+
+    .progress-section {
+      margin-bottom: 20px;
+    }
+
+    .progress-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .progress-label {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .progress-value {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .progress-bar {
+      height: 6px;
+      background-color: var(--border-color);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary-gradient);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 16px 0 12px;
+      color: var(--text-color);
+    }
+
+    /* Settings Tab */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text-color);
+      background-color: var(--bg-white);
+      transition: var(--transition);
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 14px;
+    }
+
+    .button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button-outline {
+      background-color: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .button-outline:hover {
+      background-color: rgba(99, 102, 241, 0.05);
+    }
+
+    .button-block {
+      width: 100%;
+    }
+
+    /* Subscription Tab */
+    .subscription-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+
+    .subscription-card.active {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 1px var(--primary-color);
+    }
+
+    .subscription-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .subscription-title {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .subscription-price {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .subscription-price span {
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: normal;
+    }
+
+    .subscription-features {
+      list-style-type: none;
+      margin-bottom: 16px;
+    }
+
+    .subscription-features li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .subscription-features li::before {
+      content: "✓";
+      color: var(--success-color);
+      font-weight: bold;
+    }
+
+    .subscription-banner {
+      background-color: #ecfdf5;
+      color: #047857;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* Words Tab */
+    .words-search {
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .words-search input {
+      padding-right: 40px;
+    }
+
+    .words-search::after {
+      content: "🔍";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .words-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+    }
+
+    .word-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .word-item:last-child {
+      border-bottom: none;
+    }
+
+    .word-item-original {
+      font-weight: 500;
+    }
+
+    .word-item-translation {
+      color: var(--text-light);
+      font-size: 13px;
+    }
+
+    .words-empty {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .badge-premium {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">L</div>
+      <div>LinguaBrowse</div>
+    </div>
+    <div class="nav-tabs">
+      <div class="nav-tab active" data-tab="dashboard">Dashboard</div>
+      <div class="nav-tab" data-tab="settings">Settings</div>
+      <div class="nav-tab" data-tab="subscription">Subscription</div>
+      <div class="nav-tab" data-tab="words">My Words</div>
+    </div>
+  </header>
+
+  <!-- Dashboard Tab -->
+  <div id="dashboard" class="tab-content active">
+    <div class="streak-card">
+      <div class="streak-info">
+        <div class="streak-value">0</div>
+        <div class="streak-label">Day Streak</div>
+      </div>
+      <div class="streak-icon">🔥</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Quizzes Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">0</div>
+        <div class="stat-label">Words Learned</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-title">
+        <div class="progress-label">Daily Goal</div>
+        <div class="progress-value">0/5 quizzes</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-title">
+        <div class="progress-label">XP Points</div>
+        <div class="progress-value">0 XP</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <div class="subscription-banner">
+      <div>✨</div>
+      <div>You're on the Free Plan. Upgrade for unlimited quizzes!</div>
+    </div>
+
+    <button id="upgrade-button" class="button button-block">Upgrade Now</button>
+  </div>
+
+  <!-- Settings Tab -->
+  <div id="settings" class="tab-content">
+    <form id="settings-form">
+      <div class="form-group">
+        <label for="target-language" class="form-label">Target Language</label>
+        <select id="target-language" name="targetLanguage">
+          <option value="spanish">Spanish</option>
+          <option value="french">French</option>
+          <option value="german">German</option>
+          <option value="mandarin">Mandarin</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="user-level" class="form-label">Your Level</label>
+        <select id="user-level" name="userLevel">
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quiz-frequency" class="form-label">Quiz Frequency</label>
+        <select id="quiz-frequency" name="quizFrequency">
+          <option value="low">Low (1-2 per page)</option>
+          <option value="medium" selected>Medium (3-5 per page)</option>
+          <option value="high">High (6-8 per page)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="daily-goal" class="form-label">Daily Goal</label>
+        <input type="number" id="daily-goal" name="dailyGoal" min="1" max="50" value="5">
+      </div>
+
+      <button type="submit" class="button button-block">Save Settings</button>
+    </form>
+  </div>
+
+  <!-- Subscription Tab -->
+  <div id="subscription" class="tab-content">
+    <div class="subscription-card active">
+      <div class="subscription-header">
+        <div class="subscription-title">Free</div>
+        <div class="subscription-price">$0 <span>/month</span></div>
+      </div>
+      <ul class="subscription-features">
+        <li>5 quizzes per day limit</li>
+        <li>Basic streak tracking</li>
+        <li>Single language</li>
+      </ul>
+      <div>Current Plan</div>
+    </div>
+
+    <div class="subscription-card">
+      <div class="subscription-header">
+        <div class="subscription-title">Core</div>
+        <div class="subscription-price">$5 <span>/month</span></div>
+      </div>
+      <ul class="subscription-features">
+        <li>Unlimited quizzes</li>
+        <li>Full streak tracking</li>
+        <li>Additional quiz types</li>
+        <li>Personalized word bank</li>
+      </ul>
+      <button class="button button-block">Subscribe to Core</button>
+    </div>
+
+    <div class="subscription-card">
+      <div class="subscription-header">
+        <div class="subscription-title">Premium <span class="badge badge-premium">Best Value</span></div>
+        <div class="subscription-price">$10 <span>/month</span></div>
+      </div>
+      <ul class="subscription-features">
+        <li>All Core features</li>
+        <li>Multi-language learning</li>
+        <li>Advanced progress analytics</li>
+        <li>Custom vocabulary lists</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="button button-block">Subscribe to Premium</button>
+    </div>
+  </div>
+
+  <!-- My Words Tab -->
+  <div id="words" class="tab-content">
+    <div class="words-search">
+      <input type="text" placeholder="Search your words...">
+    </div>
+
+    <div class="words-list words-empty">
+      You haven't learned any words yet. Start browsing with LinguaBrowse to build your vocabulary!
+    </div>
+
+    <div class="subscription-banner" style="display:none;">
+      <div>📝</div>
+      <div>Upgrade to Core or Premium to access your full word history!</div>
+    </div>
+  </div>
+
+  <script src="js/popup.js"></script>
+</body>
+</html>

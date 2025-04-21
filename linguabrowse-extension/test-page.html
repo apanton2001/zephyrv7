@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguaBrowse Test Page</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1, h2, h3 {
+      color: #2563eb;
+    }
+    
+    p {
+      margin: 16px 0;
+    }
+    
+    .article {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 24px;
+      margin: 32px 0;
+      background-color: #f9fafb;
+    }
+    
+    .article-title {
+      font-size: 24px;
+      margin-top: 0;
+    }
+    
+    .highlight {
+      background-color: #fef3c7;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    
+    .test-controls {
+      background-color: #eff6ff;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 40px;
+    }
+    
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    button:hover {
+      background-color: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <h1>LinguaBrowse Test Page</h1>
+  
+  <p>This page contains sample content to test the LinguaBrowse Chrome extension. The text includes common words that should be recognized by the extension and used for quiz generation.</p>
+  
+  <div class="article">
+    <h2 class="article-title">The Benefits of Learning a New Language</h2>
+    
+    <p>Learning a new <span class="highlight">language</span> is one of the most rewarding experiences you can undertake. It opens doors to new cultures, enhances your cognitive abilities, and improves your career prospects. Whether you're learning for personal or professional reasons, the benefits are numerous.</p>
+    
+    <p>When you learn a language, your <span class="highlight">brain</span> creates new neural pathways. This mental exercise has been shown to improve memory, enhance problem-solving skills, and even delay the onset of dementia. It's like a workout for your mind!</p>
+    
+    <h3>Cultural Understanding</h3>
+    
+    <p>Language and culture are deeply intertwined. By learning a <span class="highlight">language</span>, you gain insights into the values, traditions, and worldview of its speakers. You can read literature in its original form, watch films without subtitles, and connect with people on a deeper level when you travel.</p>
+    
+    <p>For example, understanding the concept of "hygge" in Danish, "wabi-sabi" in Japanese, or "sobremesa" in Spanish gives you access to cultural ideas that don't have direct translations in English.</p>
+    
+    <h3>Career Advantages</h3>
+    
+    <p>In today's global economy, speaking more than one <span class="highlight">language</span> is a valuable skill. Many employers seek candidates who can communicate with international partners, clients, or customers. Depending on the languages you learn and your industry, being bilingual or multilingual could increase your salary by 5-20%.</p>
+    
+    <p>Languages particularly in demand include Mandarin Chinese, Spanish, Arabic, and German, though the specific value varies by region and sector.</p>
+    
+    <h3>Travel Experiences</h3>
+    
+    <p>When you speak the local <span class="highlight">language</span>, travel becomes a richer experience. You can navigate more easily, order food with confidence, and most importantly, connect with local people. Even knowing basic phrases can make a significant difference in how you're received.</p>
+    
+    <p>Instead of being limited to tourist areas, you can venture off the beaten path and discover authentic experiences that most visitors miss.</p>
+    
+    <h3>Personal Growth</h3>
+    
+    <p>Learning a <span class="highlight">language</span> requires persistence, discipline, and humility. You'll make mistakes, struggle with pronunciation, and sometimes feel like you're not progressing. But these challenges contribute to personal growth and resilience.</p>
+    
+    <p>The satisfaction of having your first conversation, reading your first book, or watching your first movie in a new language is incredibly rewarding. It's a tangible accomplishment that reflects your hard work and dedication.</p>
+    
+    <h3>Conclusion</h3>
+    
+    <p>Whether you're interested in expanding your mind, enhancing your career, connecting with other cultures, or simply challenging yourself, learning a new <span class="highlight">language</span> is a worthwhile endeavor. The journey may be challenging, but the rewards are immeasurable.</p>
+    
+    <p>Remember, language learning is not about perfection—it's about communication and connection. Every word you learn is a step toward a wider, more colorful world.</p>
+  </div>
+  
+  <div class="test-controls">
+    <h3>Testing Controls</h3>
+    <p>Use these buttons to test specific functionality of the LinguaBrowse extension:</p>
+    <button id="trigger-scroll">Simulate Scroll Event</button>
+    <p>Note: The extension should automatically analyze this page's content and periodically show quizzes based on words it finds.</p>
+  </div>
+  
+  <script>
+    // Simple script to simulate user interactions for testing
+    document.getElementById('trigger-scroll').addEventListener('click', () => {
+      // Simulate a scroll event
+      window.dispatchEvent(new Event('scroll'));
+      console.log('Triggered scroll event for LinguaBrowse testing');
+    });
+  </script>
+</body>
+</html>
