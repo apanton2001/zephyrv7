@@ -1,11 +1,11 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { 
   BellIcon, 
   MagnifyingGlassIcon, 
-  Cog6ToothIcon, 
-  UserCircleIcon,
-  SunIcon 
+  ArrowTopRightOnSquareIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
 
 type HeaderProps = {
@@ -32,63 +32,52 @@ export default function Header({ title }: HeaderProps) {
   };
 
   return (
-    <header className="h-16 bg-background border-b border-border px-4 flex items-center justify-between">
-      <div className="flex items-center">
-        <h1 className="text-xl font-bold">{getPageTitle()}</h1>
-        <div className="ml-2 bg-primary/20 text-primary text-xs px-2 py-0.5 rounded">
-          Live
-        </div>
-      </div>
-      
-      <div className="flex items-center space-x-4">
+    <header className="h-16 bg-background-dark border-b border-border px-4 flex items-center justify-between">
+      <div className="flex-1 flex">
         {/* Search */}
-        <div className="relative hidden md:block">
+        <div className="relative max-w-md w-full">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <MagnifyingGlassIcon className="h-5 w-5 text-text-muted" />
+            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
           </div>
           <input
             type="text"
             placeholder="Search... (Press ⌘K for advanced search)"
-            className="input pl-10 pr-4 py-1.5 w-64"
+            className="bg-background/40 border border-border text-sm rounded-lg pl-10 pr-4 py-2 w-full focus:ring-1 focus:ring-primary focus:border-primary"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <span className="text-xs text-text-muted bg-border px-1.5 py-0.5 rounded">⌘K</span>
+            <span className="text-xs text-gray-400 bg-background-light/50 px-1.5 py-0.5 rounded">⌘K</span>
           </div>
         </div>
+      </div>
+      
+      <div className="flex items-center space-x-4">
+        {/* View Landing Button */}
+        <Link 
+          href="/landing" 
+          className="hidden md:flex items-center gap-1 px-3 py-1.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
+        >
+          <span>View Landing</span>
+          <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+        </Link>
         
         {/* Notifications */}
         <button
           type="button"
-          className="relative p-1.5 text-text-secondary rounded-md hover:bg-background-light"
+          className="relative p-1.5 text-text-secondary rounded-md hover:bg-background-light/40"
         >
-          <BellIcon className="h-5 w-5" />
-          <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-status-error ring-2 ring-background" />
+          <BellIcon className="h-6 w-6" />
+          <span className="absolute top-1 right-1 flex items-center justify-center h-5 w-5 text-xs font-medium rounded-full bg-red-500 text-white">3</span>
         </button>
         
-        {/* Settings */}
-        <button
-          type="button"
-          className="p-1.5 text-text-secondary rounded-md hover:bg-background-light"
-        >
-          <Cog6ToothIcon className="h-5 w-5" />
-        </button>
-        
-        {/* View/Toggle Button */}
-        <button
-          type="button"
-          className="hidden md:flex items-center px-3 py-1 text-xs text-text-secondary bg-background-light rounded-md hover:bg-border"
-        >
-          <span>View Landing</span>
-        </button>
-        
-        {/* User */}
+        {/* User Profile */}
         <div className="flex items-center">
           <button
             type="button"
-            className="flex items-center space-x-3 p-1.5 text-text-primary rounded-md hover:bg-background-light"
+            className="flex items-center gap-2 p-1.5 text-text-primary rounded-full hover:bg-background-light/20"
           >
-            <UserCircleIcon className="h-6 w-6" />
-            <span className="hidden md:inline-block text-sm">Admin</span>
+            <div className="h-8 w-8 rounded-full bg-primary-light flex items-center justify-center text-white">
+              <UserIcon className="h-5 w-5" />
+            </div>
           </button>
         </div>
       </div>

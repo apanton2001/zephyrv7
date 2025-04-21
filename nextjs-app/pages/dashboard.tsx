@@ -10,7 +10,8 @@ import {
   TruckIcon, 
   ExclamationTriangleIcon,
   ClockIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  ChartBarIcon
 } from '@heroicons/react/24/outline';
 import { TemplateCard, TemplateCardHeader, TemplateCardContent, TemplateCardTitle } from '../components/ui/template-card';
 import { Button } from '../components/ui/button';
@@ -85,28 +86,29 @@ export default function Dashboard() {
 
   return (
     <DashboardLayout title="Command Center">
-      {/* Dashboard Header with Refresh Button */}
+      {/* Dashboard Header with Live Badge */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">Warehouse Performance Dashboard</h2>
-        <Button 
-          variant="outline"
-          className="flex items-center gap-1.5 text-primary-light"
-          onClick={handleRefresh}
-          disabled={isRefreshing}
-        >
-          <ArrowPathIcon className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-          {isRefreshing ? 'Refreshing...' : 'Refresh Data'}
-        </Button>
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold">Command Center</h1>
+          <span className="bg-primary/90 text-white text-xs font-medium px-2.5 py-0.5 rounded-full">
+            Live
+          </span>
+        </div>
+        <div className="flex items-center gap-1 text-sm text-text-secondary">
+          <ClockIcon className="h-4 w-4" />
+          <span>Last Updated: {lastUpdated}</span>
+        </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+        {/* Metric Cards Row */}
+        <div className="lg:col-span-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {/* Active Orders */}
             <StatusCard
               title="Active Orders"
               value="4"
-              icon={<DocumentTextIcon className="h-5 w-5" />}
+              icon={<DocumentTextIcon className="h-5 w-5 text-primary" />}
               trend={{ value: 2.1, isPositive: true }}
             />
             
@@ -114,17 +116,74 @@ export default function Dashboard() {
             <StatusCard
               title="Pending Shipments"
               value="1"
-              icon={<TruckIcon className="h-5 w-5" />}
+              icon={<TruckIcon className="h-5 w-5 text-amber-500" />}
             />
             
             {/* Low Stock Items */}
             <StatusCard
               title="Low Stock Items"
               value="8"
-              icon={<ExclamationTriangleIcon className="h-5 w-5" />}
+              icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
               color="warning"
             />
           </div>
+        </div>
+        
+        {/* Efficiency Metric */}
+        <div className="lg:col-span-6">
+          <TemplateCard className="bg-background-dark border-none">
+            <div className="flex items-start justify-between">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <ChartBarIcon className="h-5 w-5 text-primary" />
+                  <h3 className="text-base font-medium">Warehouse Efficiency</h3>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold">95.7%</span>
+                  <span className="text-sm font-medium text-green-500">+{efficiencyChange}%</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-4">
+              <div className="w-full bg-background-light/50 h-3 rounded-full overflow-hidden">
+                <div 
+                  className="bg-primary h-full rounded-full" 
+                  style={{ width: '95.7%' }}
+                />
+              </div>
+            </div>
+          </TemplateCard>
+        </div>
+        
+        {/* Main Content Section */}
+        <div className="lg:col-span-8 space-y-6">
+          {/* Performance Chart */}
+          <TemplateCard>
+            <TemplateCardHeader>
+              <div className="flex justify-between items-center">
+                <TemplateCardTitle>Performance Metrics</TemplateCardTitle>
+                <Button 
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-1.5 text-primary-light"
+                  onClick={handleRefresh}
+                  disabled={isRefreshing}
+                >
+                  <ArrowPathIcon className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  {isRefreshing ? 'Refreshing...' : 'Refresh'}
+                </Button>
+              </div>
+            </TemplateCardHeader>
+            
+            <TemplateCardContent>
+              <PerformanceChart 
+                title=""
+                data={performanceData}
+                periodType={periodType}
+              />
+            </TemplateCardContent>
+          </TemplateCard>
           
           {/* Efficiency Score */}
           <EfficiencyScore 
@@ -132,18 +191,9 @@ export default function Dashboard() {
             change={efficiencyChange}
             lastUpdated={lastUpdated}
           />
-          
-          {/* Performance Chart */}
-          <div className="mt-6">
-            <PerformanceChart 
-              title="Warehouse Efficiency Trend"
-              data={performanceData}
-              periodType={periodType}
-            />
-          </div>
         </div>
         
-        <div className="space-y-6">
+        <div className="lg:col-span-4 space-y-6">
           {/* Recent Activity */}
           <TemplateCard>
             <TemplateCardHeader>
@@ -192,7 +242,7 @@ export default function Dashboard() {
                   { name: 'Ready to Ship', count: 2, percentage: 65 },
                 ].map((state, index) => (
                   <div key={index} className="flex items-center py-1">
-                    <span className="text-sm text-text-secondary w-48">{state.name}</span>
+                    <span className="text-sm text-text-secondary w-32">{state.name}</span>
                     <div className="flex-1">
                       <div className="w-full bg-background-light h-2 rounded-full">
                         <div 

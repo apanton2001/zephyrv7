@@ -2,29 +2,29 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import {
-  HomeIcon,
+  Squares2X2Icon,
   CubeIcon,
-  ChartPieIcon,
-  ArrowPathIcon,
-  MapIcon,
-  UserGroupIcon,
+  ChartBarIcon,
+  MapPinIcon,
   ClipboardDocumentCheckIcon,
+  UserGroupIcon,
   BanknotesIcon,
   ArrowTrendingUpIcon,
-  BellAlertIcon
+  ExclamationTriangleIcon,
+  UserIcon
 } from '@heroicons/react/24/outline';
 
 // Navigation items for the sidebar
 const navigationItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
+  { name: 'Dashboard', href: '/dashboard', icon: Squares2X2Icon },
   { name: 'Inventory', href: '/inventory', icon: CubeIcon },
   { name: 'Predictive Inventory', href: '/inventory/predictive', icon: ArrowTrendingUpIcon },
-  { name: 'AR Picking Assistant', href: '/picking-assistant', icon: MapIcon },
+  { name: 'AR Picking Assistant', href: '/picking-assistant', icon: MapPinIcon },
   { name: 'Client Order Tracker', href: '/orders', icon: ClipboardDocumentCheckIcon },
-  { name: 'Product Locations', href: '/inventory/locations', icon: MapIcon },
-  { name: 'Low Stock Alerts', href: '/inventory/alerts', icon: BellAlertIcon },
-  { name: 'Employee Tasks', href: '/tasks', icon: ClipboardDocumentCheckIcon },
-  { name: 'Financial Reports', href: '/reports/financial', icon: BanknotesIcon },
+  { name: 'Product Locations', href: '/inventory/locations', icon: MapPinIcon },
+  { name: 'Low Stock Alerts', href: '/inventory/alerts', icon: ExclamationTriangleIcon },
+  { name: 'Employee Tasks', href: '/tasks', icon: UserIcon },
+  { name: 'Financial Reports', href: '/reports/financial', icon: ChartBarIcon },
   { name: 'Client Database', href: '/clients', icon: UserGroupIcon },
 ];
 
@@ -40,7 +40,11 @@ export default function Sidebar() {
     <div className="flex flex-col h-full bg-background-dark border-r border-border">
       <div className="px-4 py-5 flex items-center">
         <div className="text-primary-light flex items-center">
-          <ArrowPathIcon className="h-7 w-7 mr-2" />
+          <svg className="h-7 w-7 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
           <span className="text-xl font-bold">Zephyr</span>
         </div>
       </div>
@@ -72,6 +76,9 @@ export default function Sidebar() {
             <p className="text-sm">System Status</p>
           </div>
           <p className="ml-auto text-sm text-text-secondary">Operational</p>
+        </div>
+        <div className="mt-2 text-xs text-center text-text-secondary">
+          Last Update <span className="font-medium">2 min ago</span>
         </div>
       </div>
     </div>
